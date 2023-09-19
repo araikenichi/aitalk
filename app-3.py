@@ -82,11 +82,11 @@ def communicate(new_input):
     bot_message = response['choices'][0]['message']['content']
     messages.append({"role": "assistant", "content": bot_message})
 
+
 # ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
 if user_input:
     communicate(user_input)
-    st.session_state["user_input"] = None  # 入力欄を消去
-
+    st.session_state["user_input"] = ""  # 入力欄をクリア
 
 
 # メッセージの表示
