@@ -70,7 +70,7 @@ if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
 # ユーザー入力
-user_input = st.text_input("message", value="", key="unique_user_input_key")
+user_input = st.text_input("message", key="user_input", on_change=communicate)
 
 
 # チャットボットとのコミュニケーション
