@@ -72,14 +72,10 @@ def communicate(new_input):
     # OpenAI APIを使用した応答生成（ここは適宜調整）
     bot_reply = "Hello, how can I assist you?"  # 仮の返信
     messages.append({"role": "assistant", "content": bot_reply})
-    
-    # テキストボックスをクリア
-    st.session_state["user_input"] = ""
 
 # ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
 if user_input and (not st.session_state["messages"] or st.session_state["messages"][-1]["content"] != user_input):
     communicate(user_input)
-    st.session_state["user_input"] = ""
 
 # メッセージの表示
 if st.session_state["messages"]:
