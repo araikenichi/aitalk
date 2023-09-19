@@ -100,8 +100,8 @@ if st.session_state["messages"]:
     for message in reversed(messages):
         if message["role"] == "user":
             speaker_icon = f"<img src='https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png' width='60' style='vertical-align: bottom;'>"
-            message_align = "right"
+            message_align = "right"  # ユーザーのメッセージは右寄せにする
         else:
             speaker_icon = f"<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: bottom;'>"
-            message_align = "left"
-        st.markdown(f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align};'>{speaker_icon} <span style='margin-left: 10px;'>{message['content']}</span></div>", unsafe_allow_html=True)
+            message_align = "left"  # botのメッセージは左寄せにする
+        st.markdown(f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align};'>{speaker_icon} <span style='margin-left: 10px; text-align: center;'>{message['content']}</span></div>", unsafe_allow_html=True)
