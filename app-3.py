@@ -106,10 +106,10 @@ if st.session_state["messages"]:
     for message in messages:
         if message["role"] == "user":
             speaker = f"<img src='{user_icon_url}' width='60' style='vertical-align: bottom;'>"
-            align = "flex-start"  # ユーザーのメッセージを左寄せ
+            align = "flex-start"  # ユーザーのメッセージを右寄せ
         else:
             speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='60' style='vertical-align: bottom;'>"
-            align = "flex-end"  # ボットのメッセージを右寄せ
+            align = "flex-end"  # ボットのメッセージを左寄せ
         
         st.markdown(
             f"<div style='display: flex; align-items: {align}; margin-bottom: 20px;'>"
