@@ -94,7 +94,6 @@ if user_input:
     st.session_state["user_input"] = None  # 入力欄を消去
 
 
-
 # メッセージの表示
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
