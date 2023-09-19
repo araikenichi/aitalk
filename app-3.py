@@ -65,7 +65,10 @@ if "messages" not in st.session_state:
     st.session_state["messages"] = []  # 初期メッセージを空に
 
 # ユーザー入力
-user_input = st.text_input("message", value="", key="unique_user_input_key")
+if "unique_user_input_key" not in st.session_state:
+    st.session_state["unique_user_input_key"] = ""
+
+user_input = st.text_input("message", value=st.session_state["unique_user_input_key"], key="unique_user_input_key")
 
 # チャットボットとのコミュニケーション
 def communicate(new_input):
@@ -80,15 +83,7 @@ def communicate(new_input):
 # ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
 if user_input:
     communicate(user_input)
-    st.session_state["user_input"] = ""  # 入力欄を消去
-    st.text_input("message", value="", key="unique_user_input_key")  # メッセージ欄をクリア
-
-  
-
-# ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
-if user_input:
-    communicate(user_input)
-    st.session_state["messages"][-1]["content"] = ""  # メッセージ欄をクリア
+    st.session_state["unique_user_input_key"] = ""  # 入力欄を消去
 
 # メッセージの表示
 if st.session_state["messages"]:
