@@ -100,11 +100,18 @@ if user_input:
 # メッセージの表示
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
-    align = "center"  # メッセージの位置を中央に調整
-    user_icon_url = "https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png"
-    for message in reversed(messages):
+    
+    for message in messages:
         if message["role"] == "user":
             speaker = f"<img src='{user_icon_url}' width='60' style='vertical-align: bottom;'>"
+            align = "flex-start"  # ユーザーのメッセージを左寄せ
         else:
             speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='60' style='vertical-align: bottom;'>"
-        st.markdown(f"<div style='display: flex; align-items: {align}; margin-bottom: 20px;'>{speaker} <span style='margin-left: 10px;'>{message['content']}</span></div>", unsafe_allow_html=True)
+            align = "flex-end"  # ボットのメッセージを右寄せ
+        
+        st.markdown(
+            f"<div style='display: flex; align-items: {align}; margin-bottom: 20px;'>"
+            f"<span style='margin-right: 10px;'>{message['content']}</span> {speaker}"
+            f"</div>",
+            unsafe_allow_html=True
+        )
