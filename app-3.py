@@ -62,13 +62,10 @@ st.markdown(
 
 # st.session_stateを使いメッセージのやりとりを保存
 if "messages" not in st.session_state:
-    st.session_state["messages"] = []  # 初期メッセージを空に
+    st.session_state["messages"] = []
 
 # ユーザー入力
-if "unique_user_input_key" not in st.session_state:
-    st.session_state["unique_user_input_key"] = ""
-
-user_input = st.text_input("message", value=st.session_state["unique_user_input_key"], key="unique_user_input_key")
+user_input = st.text_input("message", value="", key="unique_user_input_key")
 
 # チャットボットとのコミュニケーション
 def communicate(new_input):
