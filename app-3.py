@@ -67,9 +67,13 @@ user_input = st.text_input("message", key="user_input", on_change=communicate)
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
 
-    for message in reversed(messages[1:]):  # 直近のメッセージを上に
-        speaker = "🙂"
-        if message["role"]=="assistant":
-            speaker="🤖"
+    
+   for message in reversed(messages[1:]):  # 直近のメッセージを上に
+    speaker = "🙂"
+    if message["role"] == "assistant":
+        speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='30' style='vertical-align: top;'>"
+
+    st.markdown(f"<div style='display: flex; align-items: flex-start; margin-bottom: 20px;'>{speaker} <span style='margin-left: 10px;'>{message['content']}</span></div>", unsafe_allow_html=True)
+
 
         st.write(speaker + ": " + message["content"])
