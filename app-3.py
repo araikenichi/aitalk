@@ -12,7 +12,7 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 if "messages" in st.session_state and st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
-    st.write(message["content"])  # この行はforループの内部なので、インデントが必要です
+        st.write(message["content"])  # この行はインデントされている
 
 
 
