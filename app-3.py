@@ -30,7 +30,7 @@ def communicate():
 
 
 # ユーザーインターフェイスの構築
-st.title("My AI Assistant")
+st.title("Chat Talk")
 st.write("")
 
 user_input = st.text_input("message", key="user_input", on_change=communicate)
