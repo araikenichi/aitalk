@@ -95,7 +95,11 @@ if user_input:
 
 
 
+# ユーザーのアイコンのURLを指定
 user_icon_url = "https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png"
+
+# ボットのアイコンのURLを指定
+bot_icon_url = "https://example.com/bot_icon.png"  # ボットのアイコンのURLに置き換える
 
 # メッセージの表示
 if st.session_state["messages"]:
