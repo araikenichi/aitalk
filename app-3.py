@@ -104,7 +104,7 @@ if st.session_state["messages"]:
         else:
             speaker_icon = "<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: bottom; float: left;'>"
             message_align = "flex-start"
-            text_align = "right"
+            text_align = "left"
 
         st.markdown(
             f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: flex-end;'><span style='margin-left: 10px; text-align: {text_align};'>{message['content']}</span> {speaker_icon}</div>",
