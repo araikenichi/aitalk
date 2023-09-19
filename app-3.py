@@ -103,5 +103,5 @@ if st.session_state["messages"]:
         if message["role"] == "user":
             speaker = f"<img src='{user_icon_url}' width='60' style='vertical-align: bottom;'>"
         else:
-            speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='60' style='vertical-align: bottom;'>"
+            speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: bottom;'>"
         st.markdown(f"<div style='display: flex; align-items: {align}; margin-bottom: 20px;'>{speaker} <span style='margin-left: 10px;'>{message['content']}</span></div>", unsafe_allow_html=True)
