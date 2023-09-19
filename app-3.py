@@ -80,7 +80,7 @@ def communicate(new_input):
 # ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
 if user_input:
     communicate(user_input)
-    st.text_input("message", value="", key="user_input")  # メッセージ欄をクリア
+    st.session_state["user_input"] = ""  # メッセージ欄をクリア
 
 # メッセージの表示
 if st.session_state["messages"]:
