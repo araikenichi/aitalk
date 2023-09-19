@@ -8,29 +8,12 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 
 
-import streamlit as st
-# その他のインポート
-
-# 初期化など
+# st.session_stateを使いメッセージのやりとりを保存
 if "messages" not in st.session_state:
-    st.session_state["messages"] = []
+    st.session_state["messages"] = [
+        {"role": "system", "content": ""}
+        ]
 
-def communicate():
-    # 何らかの処理、例えばAPIからのレスポンスを取得
-    pass
-
-# Streamlit UI部分
-user_input = st.text_input("Your message", key="user_input")
-
-if user_input:
-    communicate()
-    st.session_state["user_input"] = ""
-
-if "messages" in st.session_state and st.session_state["messages"]:
-    messages = st.session_state["messages"]
-    for message in reversed(messages):
-        # メッセージを表示するコード
-        pass
 
 
 
