@@ -96,6 +96,8 @@ if user_input:
 
 
 # ...
+# ユーザーのアイコンのURLを指定
+user_icon_url = "https://example.com/user_icon.png"  # ユーザーのアイコンのURLに置き換える
 
 # メッセージの表示
 if st.session_state["messages"]:
