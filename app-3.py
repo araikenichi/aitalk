@@ -98,9 +98,9 @@ if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         if message["role"] == "user":
-            speaker_icon = f"<img src='https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png' width='60' style='vertical-align: bottom;'>"
-            message_align = "left"  # ユーザーのメッセージは左寄せにする
+            speaker_icon = f"<img src='https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png' width='60' style='vertical-align: bottom; float: right;'>"
+            message_align = "left"
         else:
-            speaker_icon = f"<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: bottom;'>"
-            message_align = "right"  # botのメッセージは右寄せにする
+            speaker_icon = f"<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: bottom; float: left;'>"
+            message_align = "right"
         st.markdown(f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align};'>{speaker_icon} <span style='margin-left: 10px; text-align: center;'>{message['content']}</span></div>", unsafe_allow_html=True)
