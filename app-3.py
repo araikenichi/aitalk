@@ -93,16 +93,19 @@ if user_input:
     communicate(user_input)
     st.session_state["user_input"] = None  # 入力欄を消去
 
-# メッセージの表示
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         if message["role"] == "user":
-            speaker_icon = f"<img src='https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png' width='60' style='vertical-align: bottom; float: right;'>"
-            message_align = "right"
-            text_align = "align text to the left"  # テキストを左寄せ
+            speaker_icon = "<img src='https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png' width='60' style='vertical-align: bottom; float: right;'>"
+            message_align = "flex-end"
+            text_align = "left"
         else:
-            speaker_icon = f"<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: bottom; float: left;'>"
-            message_align = "left"
-            text_align = "right"  # テキストを右寄せ
-        st.markdown(f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align};'>{speaker_icon} <span style='margin-left: 10px; text-align: {text_align};'>{message['content']}</span></div>", unsafe_allow_html=True)
+            speaker_icon = "<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: bottom; float: left;'>"
+            message_align = "flex-start"
+            text_align = "right"
+
+        st.markdown(
+            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: flex-end;'><span style='margin-right: 10px; text-align: {text_align};'>{message['content']}</span> {speaker_icon}</div>",
+            unsafe_allow_html=True,
+        )
