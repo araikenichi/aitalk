@@ -62,9 +62,7 @@ st.markdown(
 
 # st.session_stateを使いメッセージのやりとりを保存
 if "messages" not in st.session_state:
-    st.session_state["messages"] = []
-if "last_user_input" not in st.session_state:
-    st.session_state["last_user_input"] = ""
+    st.session_state["messages"] = []  # 初期メッセージを空に
 
 # ユーザー入力
 user_input = st.text_input("message", key="user_input")
@@ -75,14 +73,14 @@ def communicate(new_input):
     user_message = {"role": "user", "content": new_input}
     messages.append(user_message)
     
-    # ここでOpenAI APIを使用して応答を生成する（仮の応答を用います）
-    bot_reply = f"Your message was: {new_input}"  # 仮の返信
+    # OpenAI APIを使用した応答生成（仮の応答を用います）
+    bot_reply = f"Your message was: {new_input}"  # 応答を変更
     messages.append({"role": "assistant", "content": bot_reply})
 
 # ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
-if user_input and user_input != st.session_state["last_user_input"]:
+if user_input:
     communicate(user_input)
-    st.session_state["last_user_input"] = user_input  # 最後のユーザー入力を保存
+    st.text_input("message", value="", key="user_input")  # メッセージ欄をクリア
 
 # メッセージの表示
 if st.session_state["messages"]:
