@@ -36,6 +36,25 @@ st.markdown("<h1 style='text-align: center;'>Chat Talk</h1>", unsafe_allow_html=
 
 
 
+from PIL import Image  # PILライブラリからImageクラスをインポート
+import requests
+from io import BytesIO
+import streamlit as st
+
+
+# 画像のURL
+image_url = "https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png"
+
+# 画像をダウンロード
+response = requests.get(image_url)
+image = Image.open(BytesIO(response.content))
+
+# 画像を中央に表示
+st.write("<div style='text-align: center;'>", unsafe_allow_html=True)
+st.image(image, caption='', use_column_width=True)
+st.write("</div>", unsafe_allow_html=True)
+
+
 
 
 
