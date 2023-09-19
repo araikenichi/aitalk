@@ -60,17 +60,29 @@ st.markdown(
 
 
 
-user_input = st.text_input("message", key="user_input", on_change=communicate)
+# ユーザー入力
+user_input = st.text_input("message", key="user_input")
 
+# チャットボットとのコミュニケーション
+def communicate():
+    messages = st.session_state["messages"]
+    user_message = {"role": "user", "content": user_input}
+    messages.append(user_message)
+    # OpenAI APIを使用した応答生成（ここは適宜調整）
+    # 省略
+
+# ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
+if user_input:
+    communicate()
+
+# メッセージの表示
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
-
-    for message in reversed(messages[1:]):  # 直近のメッセージを上に
-        speaker = "🙂"
-        if message["role"] == "assistant":
-            speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='20' style='vertical-align: top;'>"
-        st.markdown(f"<div style='display: flex; align-items: flex-start; margin-bottom: 20px;'>{speaker} <span style='margin-left: 50px;'>{message['content']}</span></div>", unsafe_allow_html=True)
-
+    for message in reversed(messages):
+        if message["role"] == "user":
+            speaker = "🙂"
+        else:
+            speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2
 
 
 
