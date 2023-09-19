@@ -9,10 +9,13 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 
 # st.session_stateを使いメッセージのやりとりを保存
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [
-        {"role": "system", "content": ""}
-        ]
+if st.session_state["messages"]:
+    messages = st.session_state["messages"]
+    for message in reversed(messages):
+        if message["role"] == "system":
+            continue  # Skip system messages
+        # ... (rest of your code)
+
 
 
 
