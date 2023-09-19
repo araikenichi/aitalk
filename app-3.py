@@ -107,7 +107,7 @@ if st.session_state["messages"]:
             text_align = "right"
 
         st.markdown(
-            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: flex-end;'><span style='margin-right: 10px; text-align: {text_align};'>{message['content']}</span> {speaker_icon}</div>",
+            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: flex-end;'><span style='margin-left: 10px; text-align: {text_align};'>{message['content']}</span> {speaker_icon}</div>",
             unsafe_allow_html=True,
         )
 
