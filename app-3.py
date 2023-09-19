@@ -35,21 +35,7 @@ st.write("")
 st.markdown("<h1 style='text-align: center;'>Chat Talk</h1>", unsafe_allow_html=True)
 
 
-from PIL import Image  # PILライブラリからImageクラスをインポート
-import streamlit as st
 
-
-# 画像の読み込み
-image_path = "/Users/araikenichi/Downloads/girlcute.png"  # 画像ファイルのパスを指定
-
-try:
-    image = Image.open(image_path)
-    # 画像を中央に表示
-    st.write("<div style='text-align: center;'>", unsafe_allow_html=True)
-    st.image(image, caption='', use_column_width=True)
-    st.write("</div>", unsafe_allow_html=True)
-except FileNotFoundError:
-    st.error("Image file not found.")
 
 
 
