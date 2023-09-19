@@ -62,7 +62,9 @@ st.markdown(
 
 # st.session_stateを使いメッセージのやりとりを保存
 if "messages" not in st.session_state:
-    st.session_state["messages"] = []  # 初期値を空のリストに
+    st.session_state["messages"] = []
+if "last_user_input" not in st.session_state:
+    st.session_state["last_user_input"] = ""
 
 # ユーザー入力
 user_input = st.text_input("message", key="user_input")
@@ -78,9 +80,9 @@ def communicate(new_input):
     messages.append({"role": "assistant", "content": bot_reply})
 
 # ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
-if user_input:
+if user_input and user_input != st.session_state["last_user_input"]:
     communicate(user_input)
-    st.session_state["user_input"] = ""  # テキストボックスをクリア
+    st.session_state["last_user_input"] = user_input  # 最後のユーザー入力を保存
 
 # メッセージの表示
 if st.session_state["messages"]:
