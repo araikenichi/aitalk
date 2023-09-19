@@ -86,6 +86,7 @@ if user_input:
     communicate(user_input)
     st.session_state["user_input"] = ""  # 入力欄を消去
 
+
 # メッセージの表示
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
@@ -93,5 +94,5 @@ if st.session_state["messages"]:
         if message["role"] == "user":
             speaker = "🙂"
         else:
-            speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='60' style='vertical-align: middle;'>"
+            speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='60' style='vertical-align: bottom;'>"
         st.markdown(f"<div style='display: flex; align-items: flex-start; margin-bottom: 20px;'>{speaker} <span style='margin-left: 10px;'>{message['content']}</span></div>", unsafe_allow_html=True)
