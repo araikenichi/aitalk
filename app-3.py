@@ -1,4 +1,4 @@
-%%writefile app-3.py
+
 # 以下を「app.py」に書き込み
 
 import streamlit as st
