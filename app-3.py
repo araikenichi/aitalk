@@ -69,7 +69,18 @@ if st.session_state["messages"]:
         speaker = "🙂"
         if message["role"] == "assistant":
             speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='20' style='vertical-align: top;'>"
-        st.markdown(f"<div style='display: flex; align-items: flex-start; margin-bottom: 20px;'>{speaker} <span style='margin-left: 10px;'>{message['content']}</span></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='display: flex; align-items: flex-start; margin-bottom: 50px;'>{speaker} <span style='margin-left: 10px;'>{message['content']}</span></div>", unsafe_allow_html=True)
+
+        def communicate():
+    messages = st.session_state["messages"]
+    user_message = {"role": "user", "content": user_input}
+
+    # 重複メッセージを防ぐためのチェック
+    if messages[-1] != user_message:
+        messages.append(user_message)
+        # OpenAI APIを使用した応答生成（ここは適宜調整）
+        # 省略
+
 
 
 
