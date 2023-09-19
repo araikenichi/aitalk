@@ -85,7 +85,8 @@ def communicate(new_input):
 # ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
 if user_input:
     communicate(user_input)
-    st.session_state["user_input"] = ""  # 入力欄を消去
+    st.session_state["user_input"] = None  # 入力欄を消去
+
 
 
 # メッセージの表示
