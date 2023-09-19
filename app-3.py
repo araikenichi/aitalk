@@ -9,27 +9,12 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 
 # st.session_stateを使いメッセージのやりとりを保存
-# この部分を
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [
-        {"role": "system", "content": ""}
-    ]
-
-# このように修正
-if "messages" not in st.session_state:
-    st.session_state["messages"] = []
-
-# そして、この部分も
-if st.session_state["messages"]:
-    messages = st.session_state["messages"]
-    for message in reversed(messages):
-        # ...
-
-# このように修正
 if "messages" in st.session_state and st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
-        # ...
+        # こちらのブロックも適切にインデントする
+        ...
+
 
 
 
