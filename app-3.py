@@ -64,16 +64,16 @@ st.markdown(
 user_input = st.text_input("message", key="user_input")
 
 # チャットボットとのコミュニケーション
-def communicate():
+def communicate(new_input):
     messages = st.session_state["messages"]
-    user_message = {"role": "user", "content": user_input}
+    user_message = {"role": "user", "content": new_input}
     messages.append(user_message)
     # OpenAI APIを使用した応答生成（ここは適宜調整）
     # 省略
 
 # ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
-if user_input:
-    communicate()
+if user_input and (not st.session_state["messages"] or st.session_state["messages"][-1]["content"] != user_input):
+    communicate(user_input)
 
 # メッセージの表示
 if st.session_state["messages"]:
@@ -83,12 +83,5 @@ if st.session_state["messages"]:
             speaker = "🙂"
         else:
             speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='20' style='vertical-align: top;'>"
-        st.markdown(f"<div style='display: flex; align-items: flex-start; margin-bottom: 50px;'>{speaker} <span style='margin-left: 10px;'>{message['content']}</span></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='display: flex; align-items: flex-start; margin-bottom: 20px;'>{speaker} <span style='margin-left: 10px;'>{message['content']}</span></div>", unsafe_allow_html=True)
 
-
-
-
-
-
-
-        st.write(speaker + ": " + message["content"])
