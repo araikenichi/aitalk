@@ -51,8 +51,9 @@ image = Image.open(BytesIO(response.content))
 
 # 画像を中央に表示
 st.write("<div style='text-align: center;'>", unsafe_allow_html=True)
-st.image(image, caption='', use_column_width=True)
+st.image(image, caption='', use_column_width=False, width=250)  # widthを300ピクセルに設定
 st.write("</div>", unsafe_allow_html=True)
+
 
 
 
