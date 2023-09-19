@@ -73,9 +73,13 @@ def communicate(new_input):
     user_message = {"role": "user", "content": new_input}
     messages.append(user_message)
     
-    # OpenAI APIを使用した応答生成（仮の応答を用います）
-    bot_reply = f"Your message was: {new_input}"  # 応答を変更
-    messages.append({"role": "assistant", "content": bot_reply})
+    # OpenAI APIを使用した応答生成
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages
+    )
+    bot_message = response['choices'][0]['message']['content']
+    messages.append({"role": "assistant", "content": bot_message})
 
 # ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
 if user_input:
