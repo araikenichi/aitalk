@@ -94,4 +94,4 @@ if st.session_state["messages"]:
             speaker = "🙂"
         else:
             speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='20' style='vertical-align: top;'>"
-        st.markdown(f"<div style='display: flex; align-items: flex-start; margin-bottom: 20px;'>{speaker} <span style='margin-left: 10px;'>{message['content']}</span></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='display: flex; align-items: flex-start; margin-bottom: 40px;'>{speaker} <span style='margin-left: 40px;'>{message['content']}</span></div>", unsafe_allow_html=True)
