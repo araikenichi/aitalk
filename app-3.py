@@ -103,17 +103,13 @@ if st.session_state["messages"]:
         if message["role"] == "user":
             speaker_icon = "<img src='https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png' width='60' style='vertical-align: middle; float: right;'>"
             message_align = "flex-end"
-            text_align = "left"  # Changed to left
-            content_order = f"{speaker_icon}<span style='margin-left: 10px; text-align: {text_align};'>{message['content']}</span>"
+            text_align = "right"
         else:
             speaker_icon = "<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: middle; float: left;'>"
             message_align = "flex-start"
-            text_align = "left"  # Changed to left
-            content_order = f"<span style='margin-right: 10px; text-align: {text_align};'>{message['content']}</span>{speaker_icon}"
+            text_align = "right"
 
         st.markdown(
-            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
+            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'><span style='margin-right: 10px; text-align: {text_align}; transform: scaleX(-1);'>{message['content']}</span> {speaker_icon}</div>",
             unsafe_allow_html=True,
         )
-
-
