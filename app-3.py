@@ -92,7 +92,6 @@ if st.session_state["messages"]:
     for message in reversed(messages):
         if message["role"] == "user":
             speaker = "🙂"
-            
         else:
-            speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='60' style='vertical-align: top;'>"
-        st.markdown(f"<div style='display: flex; align-items: flex-start; margin-bottom: 30px;'>{speaker} <span style='margin-left: 30px;'>{message['content']}</span></div>", unsafe_allow_html=True)
+            speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='60' style='vertical-align: middle;'>"
+        st.markdown(f"<div style='display: flex; align-items: flex-start; margin-bottom: 20px;'>{speaker} <span style='margin-left: 10px;'>{message['content']}</span></div>", unsafe_allow_html=True)
