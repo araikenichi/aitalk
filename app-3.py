@@ -18,7 +18,7 @@ if "messages" not in st.session_state:
 
 # チャットボットとやりとりする関数
 def communicate():
-    messages = st.session_state[""]
+    messages = st.session_state["message"]
 
     user_message = {"role": "user", "content": st.session_state["user_input"]}
     messages.append(user_message)
@@ -31,7 +31,7 @@ def communicate():
     bot_message = response["choices"][0]["message"]
     messages.append(bot_message)
 
-    st.session_state["user_input"] = "message"  # 入力欄を削除
+    st.session_state["user_input"] = ""  # 入力欄を削除
 
 
 # ユーザーインターフェイスの構築
