@@ -100,7 +100,7 @@ if st.session_state["messages"]:
     for message in reversed(messages):
         if message["role"] == "user":
             speaker_icon = f"<img src='https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png' width='60' style='vertical-align: bottom;'>"
-            message_align = "right"  # ユーザーのメッセージは右寄せにする
+            message_align = "left"  # ユーザーのメッセージは左寄せにする
         else:
             speaker_icon = f"<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: bottom;'>"
             message_align = "left"  # botのメッセージは左寄せにする
