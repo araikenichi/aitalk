@@ -99,7 +99,7 @@ if user_input:
 user_icon_url = "https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png"
 
 # ボットのアイコンのURLを指定
-bot_icon_url = "https://github.com/araikenichi/aitalk/issues/1#issue-1902476138"
+bot_icon_url = "https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png"
 
 # メッセージの表示
 if st.session_state["messages"]:
