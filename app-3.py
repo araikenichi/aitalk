@@ -102,7 +102,7 @@ if st.session_state["messages"]:
             message_align = "flex-end"
             text_align = "left"
         else:
-            speaker_icon = "<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: bottom; float: left;'>"
+            speaker_icon = "<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: bottom; float: right;'>"
             message_align = "flex-start"
             text_align = "left"
 
