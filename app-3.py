@@ -61,35 +61,34 @@ st.markdown(
 
 
 import streamlit as st
+import openai
 
 # Initialize session state
 if 'messages' not in st.session_state:
-    st.session_state['messages'] = []
+    st.session_state.messages = [{'role': 'system', 'content': 'AI Talk'}]
 
 # User input
-user_input = st.text_input('message', value='', key='unique_user_input_key')
+user_input = st.text_input('Message:', key='user_input')
 
-# Communication function
-def communicate(new_input):
-    messages = st.session_state['messages']
-    user_message = {'role': 'user', 'content': new_input}
-    messages.append(user_message)
+# Function to handle communication
+def communicate(input_text):
+    # Append user message to session state
+    st.session_state.messages.append({'role': 'user', 'content': input_text})
     
-    # Simulated bot reply
-    bot_reply = f'Your message was: {new_input}'
-    messages.append({'role': 'assistant', 'content': bot_reply})
+    # Generate bot reply (this is a placeholder; replace with OpenAI API call)
+    bot_reply = f'Your message was: {input_text}'
+    
+    # Append bot message to session state
+    st.session_state.messages.append({'role': 'assistant', 'content': bot_reply})
 
-# Trigger communication function
+# If user input is not empty, call communicate function
 if user_input:
     communicate(user_input)
-    st.session_state['unique_user_input_key'] = ''  # Clear input field
+    st.session_state.user_input = ''  # Clear the input field
 
 # Display messages
-if st.session_state['messages']:
-    messages = st.session_state['messages']
-    for message in reversed(messages):
-        if message['role'] == 'user':
-            speaker = '🙂'
-        else:
-            speaker = '🤖'
-        st.markdown(f"{speaker} {message['content']}")
+for message in reversed(st.session_state.messages):
+    if message['role'] == 'user':
+        st.write(f'User: {message['content']}')
+    else:
+        st.write(f'Bot: {message['content']}')
