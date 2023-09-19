@@ -49,10 +49,12 @@ image_url = "https://user-images.githubusercontent.com/37874452/268891476-c11a2c
 response = requests.get(image_url)
 image = Image.open(BytesIO(response.content))
 
-# 画像を中央に表示
-st.write("<div style='text-align: center;'>", unsafe_allow_html=True)
-st.image(image, caption='', use_column_width=False, width=300)  # widthを300ピクセルに設定
-st.write("</div>", unsafe_allow_html=True)
+
+# 画像を中央に表示するためのCSSを適用
+st.markdown(
+    f"<div style='text-align: center;'><img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='300'></div>",
+    unsafe_allow_html=True,
+)
 
 
 
