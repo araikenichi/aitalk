@@ -71,7 +71,7 @@ if "messages" not in st.session_state:
 
 # ユーザー入力
 user_input = st.text_input("message", key="user_input", on_change=communicate)
-
+# ...
 
 # チャットボットとのコミュニケーション
 def communicate(new_input):
@@ -94,13 +94,16 @@ if user_input:
     st.session_state["user_input"] = None  # 入力欄を消去
 
 
+
+# ...
+
 # メッセージの表示
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
     align = "center"  # メッセージの位置を中央に調整
     for message in reversed(messages):
         if message["role"] == "user":
-            speaker = "🙂"
+            speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png' width='60' style='vertical-align: bottom;'>"
         else:
-            speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='60' style='vertical-align: bottom;'>"
+            speaker = f"<img src='https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png' width='60' style='vertical-align: bottom;'>"
         st.markdown(f"<div style='display: flex; align-items: {align}; margin-bottom: 20px;'>{speaker} <span style='margin-left: 10px;'>{message['content']}</span></div>", unsafe_allow_html=True)
