@@ -31,13 +31,12 @@ def communicate():
 
 # ユーザーインターフェイスの構築
 st.write("")
+# タイトルを中央に表示
 st.markdown("<h1 style='text-align: center;'>Chat Talk</h1>", unsafe_allow_html=True)
 
 import streamlit as st
 from PIL import Image  # PILライブラリからImageクラスをインポート
 
-# タイトルを中央に表示
-st.markdown("<h1 style='text-align: center;'>Chat Talk</h1>", unsafe_allow_html=True)
 
 # 画像のフルパスを指定（この例ではMacのダウンロードフォルダ内のgirlcute.pngを指定）
 image_path = "/Users/araikenichi/Downloads/girlcute.png"
