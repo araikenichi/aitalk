@@ -20,6 +20,10 @@ if "messages" in st.session_state and st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         # ...（メッセージ表示のコード）
+def communicate():
+    # この行が適切にインデントされている
+    # ...
+
 
 
 
