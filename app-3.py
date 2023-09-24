@@ -103,13 +103,10 @@ if user_input:
 
 
 
-
-# ...（先頭のコードはそのまま）
-
 # 画像のURLを変数に格納（実際のURLに書き換えてください）
 happy_image_url = "https://example.com/happy.png"
 sad_image_url = "https://example.com/sad.png"
-neutral_image_url = "https://example.com/neutral.png"
+neutral_image_url = "https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png"
 
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
@@ -123,19 +120,11 @@ if st.session_state["messages"]:
     else:
         current_image_url = neutral_image_url
 
+    # 画像をダウンロード
+    response = requests.get(current_image_url)
+    image = Image.open(BytesIO(response.content))
+
     # 画像を表示
-    st.image(current_image_url)
+    st.image(image)
 
-    # メッセージの表示
-    for message in reversed(messages):
-        if message["role"] == "user":
-            message_style = "background-color: #DCF8C6; border-radius: 12px; padding: 10px; display: inline-block; color: black;"
-            message_align = "flex-end"
-        else:
-            message_style = "background-color: #333333; border-radius: 12px; padding: 10px; display: inline-block; color: white;"
-            message_align = "flex-start"
-
-        st.markdown(
-            f"<div style='display: flex; justify-content: {message_align}; margin-bottom: 12px;'><div style='{message_style}'>{message['content']}</div></div>",
-            unsafe_allow_html=True,
-        )
+    # ...（以降のメッセージ表示コード）
