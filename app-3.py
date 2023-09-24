@@ -111,7 +111,7 @@ if st.session_state["messages"]:
             message_style = "background-color: #DCF8C6; border-radius: 12px; padding: 10px; display: inline-block; color: black;"
             message_align = "flex-end"
         else:
-            message_style = "background-color: #FFFFFF; border-radius: 12px; padding: 10px; display: inline-block; color: black;"
+            message_style = "background-color: #333333; border-radius: 12px; padding: 10px; display: inline-block; color: white;"
             message_align = "flex-start"
 
         st.markdown(
