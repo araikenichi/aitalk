@@ -102,14 +102,23 @@ if user_input:
 
 
 
-
-# 先頭のコード（インポート文など）
-
-# 動画のURLまたはファイルパス
+# 動画のURL
 video_url = "https://user-images.githubusercontent.com/37874452/270180987-85b8c0b5-5ba2-4862-b5cb-2e746eb771ec.mp4"
 
-# 動画を表示
-st.video(video_url)
+# HTMLとJavaScriptを使用して動画を自動再生・ループ再生
+video_html = f'''
+<video width="320" height="240" controls autoplay loop>
+    <source src="{video_url}" type="video/mp4">
+</video>
+'''
+
+# StreamlitにHTMLを埋め込む
+st.markdown(video_html, unsafe_allow_html=True)
+
+# ... 以降はそのまま
+
+
+
 
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
