@@ -106,7 +106,7 @@ if user_input:
 # 先頭のコード（インポート文など）
 
 # 動画のURLまたはファイルパス
-video_url = "https://example.com/video.mp4"
+video_url = "https://github.com/araikenichi/aitalk/issues/4#issue-1910313548"
 
 # 動画を表示
 st.video(video_url)
