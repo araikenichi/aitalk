@@ -103,14 +103,18 @@ if user_input:
 
 
 
-# 画像のURLを変数に格納（実際のURLに書き換えてください）
-happy_image_url = "https://example.com/happy.png"
-sad_image_url = "https://example.com/sad.png"
-neutral_image_url = "https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png"
+# 先頭のコード（インポート文など）
+
+# 動画のURLまたはファイルパス
+video_url = "https://example.com/video.mp4"
+
+# 動画を表示
+st.video(video_url)
 
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
-    
+    # メッセージ表示のコード
+
     # ユーザーまたはチャットボットの最新のメッセージに基づいて画像を選択
     last_message = messages[-1]['content'].lower()  # 最新のメッセージを取得
     if "happy" in last_message:
