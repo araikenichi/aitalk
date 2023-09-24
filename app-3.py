@@ -104,8 +104,29 @@ if user_input:
 
 
 
+# ...（先頭のコードはそのまま）
+
+# 画像のURLを変数に格納（実際のURLに書き換えてください）
+happy_image_url = "https://example.com/happy.png"
+sad_image_url = "https://example.com/sad.png"
+neutral_image_url = "https://example.com/neutral.png"
+
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
+    
+    # ユーザーまたはチャットボットの最新のメッセージに基づいて画像を選択
+    last_message = messages[-1]['content'].lower()  # 最新のメッセージを取得
+    if "happy" in last_message:
+        current_image_url = happy_image_url
+    elif "sad" in last_message:
+        current_image_url = sad_image_url
+    else:
+        current_image_url = neutral_image_url
+
+    # 画像を表示
+    st.image(current_image_url)
+
+    # メッセージの表示
     for message in reversed(messages):
         if message["role"] == "user":
             message_style = "background-color: #DCF8C6; border-radius: 12px; padding: 10px; display: inline-block; color: black;"
@@ -118,4 +139,3 @@ if st.session_state["messages"]:
             f"<div style='display: flex; justify-content: {message_align}; margin-bottom: 12px;'><div style='{message_style}'>{message['content']}</div></div>",
             unsafe_allow_html=True,
         )
-
