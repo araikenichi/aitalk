@@ -19,31 +19,40 @@ if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
 
-# コミュニケーション関数
+
+    system_prompt = """
+この""内のがあなたの設定です"年齢は20歳、身長168cm、体重50kg、中国出身、中国上海人、性格明るい、かわいい系、学校の先生、中国語、英語、日本語がネイティブ、これらを教えている。
+
+
+* 政治
+* 敏感な歴史
+* 犯罪　
+これらの話題は禁止します、聞かれてもことえないでください
+
+"""
+# st.session_stateを使いメッセージのやりとりを保存
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [
+        {"role": "system", "content": system_prompt}
+        ]
+
+# チャットボットとやりとりする関数
 def communicate():
-    new_input = st.session_state["user_input"]
-    language = "English"  # ここで言語設定をする
     messages = st.session_state["messages"]
-    user_message = {"role": "user", "content": new_input}
+
+    user_message = {"role": "user", "content": st.session_state["user_input"]}
     messages.append(user_message)
 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages
-    )
-    bot_content = response['choices'][0]['message']['content']
-    
-    # 人物設定に基づいたカスタムメッセージ
-    custom_content = f"{bot_content}"
+    )  
 
-    
-    bot_message = {"role": "assistant", "content": custom_content}
+    bot_message = response["choices"][0]["message"]
     messages.append(bot_message)
-    
-    def communicate(new_input):
-    # 既存のコード
-    # ...
-    st.session_state["user_input"] = ""  # 入力欄をクリア
+
+    st.session_state["user_input"] = ""  # 入力欄を消去
+
 
 
 
