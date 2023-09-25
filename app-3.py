@@ -56,9 +56,14 @@ def communicate(new_input):
 
 # チャットボットとやりとりする関数
 def communicate(input_message):
-    messages = st.session_state["messages"]
-    # ここで input_message を使用する処理
-    # ...
+    try:
+        print("Communicate function called.")  # デバッグ用
+        messages = st.session_state["messages"]
+        # ここで input_message を使用する処理
+        # ...
+        print("Communicate function completed.")  # デバッグ用
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 # ユーザー入力
 if "user_input" not in st.session_state:
