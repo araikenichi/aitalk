@@ -51,11 +51,12 @@ def communicate(user_input):
 
 
 # ユーザー入力
-user_input = st.text_input("Message", key="user_input")
+user_input = st.text_input("Message", key="unique_user_input")
 
 if user_input:
-    communicate(user_input)
-    st.session_state["user_input"] = ""  # Clear the text input
+    communicate(user_input)  # 一時的な変数を引数として渡す
+    st.session_state["user_input"] = ""  # 入力欄を消去
+    st.experimental_rerun()  # Streamlitをリフレッシュ
 
 
 
