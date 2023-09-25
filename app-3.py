@@ -37,20 +37,21 @@ st.write("")
 # タイトルを中央に表示
 st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
-# カスタムCSSで背景色とテキスト色を設定
-custom_css = """
-<style>
-  body {
-    background-color: white;
-    color: black;
-  }
-</style>
+
+
+# カスタムJavaScriptで背景色とテキスト色を設定
+custom_js = """
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.body.style.backgroundColor = "white";
+    document.body.style.color = "black";
+  });
+</script>
 """
 
-# CSSを追加
-st.markdown(custom_css, unsafe_allow_html=True)
+# JavaScriptを追加
+st.markdown(custom_js, unsafe_allow_html=True)
 
-# 既存のコード（ここにその他のStreamlitコードを追加）
 
 
 
