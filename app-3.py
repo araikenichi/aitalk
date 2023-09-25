@@ -11,35 +11,31 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 
 # チャットボットとやりとりする関数
-def communicate():
-    messages = st.session_state["messages"]
-
-    user_message = {"role": "user", "content": st.session_state["user_input"]}
+def communicate(new_input):
+    messages = st.session_state.get("messages", [])
+    user_message = {"role": "user", "content": new_input}
     messages.append(user_message)
-
+    
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages
-    )  
+    )
+    bot_message = response['choices'][0]['message']['content']
+    messages.append({"role": "assistant", "content": bot_message})
 
-    bot_message = response["choices"][0]["message"]
-    messages.append(bot_message)
+    st.session_state.messages = messages
 
-    st.session_state["user_input"] = ""  # 入力欄を削除
-
+st.title("LISA")
 
 # ユーザーインターフェイスの構築
 st.write()
 # タイトルを中央に表示
 st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
-
-
-
-
-# st.session_stateを使いメッセージのやりとりを保存
 if "messages" not in st.session_state:
-    st.session_state["messages"] = []
+    st.session_state.messages = []
+
+
 
 
 from PIL import Image  # PILライブラリからImageクラスをインポート
@@ -76,43 +72,25 @@ def communicate(new_input):
 
 
 # ユーザー入力
-user_input = st.text_input("message", key="user_input")
+user_input = st.text_input("Message", key="user_input")
 if user_input:
     communicate(user_input)
 
 
 
 
-if "user_input" in st.session_state:
-    st.session_state["user_input"] = ""
-else:
-    st.session_state.user_input = ""
 
-
-
-
-
-# 初期化部分
-if "messages" not in st.session_state:
-    st.session_state["messages"] = []
-
-
-
-
-
-if st.session_state["messages"]:
-    messages = st.session_state["messages"]
+if st.session_state.messages:
+    messages = st.session_state.messages
     for message in messages:
         if message["role"] == "user":
             message_align = "flex-end"
             content_style = "background-color: #0DAB26; color: white; padding: 10px; border-radius: 10px; position: relative;"
-            triangle_style = "width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #0DAB26; position: absolute; right: 0; bottom: -10px;"
         else:
             message_align = "flex-start"
             content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;"
-            triangle_style = "width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #ACAFAC; position: absolute; left: 0; bottom: -10px;"
 
-        content_order = f"<div style='{content_style}'>{message['content']}<div style='{triangle_style}'></div></div>"
+        content_order = f"<div style='{content_style}'>{message['content']}</div>"
 
         st.markdown(
             f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
