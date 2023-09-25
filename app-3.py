@@ -95,9 +95,9 @@ if user_input:
 
 
 
-# セッションの初期設定
+# 初期化部分
 if "messages" not in st.session_state:
-    st.session_state[""] = [{"role": "system", "content": ""}]
+    st.session_state[""] = []
 
 
 
