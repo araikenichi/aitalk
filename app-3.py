@@ -40,9 +40,11 @@ def communicate():
     bot_message = {"role": "assistant", "content": custom_content}
     messages.append(bot_message)
     
-     # do something
-st.session_state["user_input"] = ""  # 入力欄をクリア
-
+    def communicate(new_input):
+    # 既存のコード
+    # ...
+    st.session_state["user_input"] = ""  # 入力欄をクリア
+    st.write("Input cleared!")  # デバッグ用
 
 
 
