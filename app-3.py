@@ -96,7 +96,7 @@ if "messages" not in st.session_state:
 
 
 
-      if st.session_state["messages"]:
+  if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         if message["role"] == "user":
