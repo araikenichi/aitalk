@@ -95,8 +95,8 @@ if "messages" not in st.session_state:
 
 
 
-# メッセージ入力欄をページの最後に表示
-user_input = st.text_input("Message", key="user_input")
+
+
 
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
