@@ -78,8 +78,7 @@ def communicate(new_input=None):
 user_input = st.text_input("message", key="user_input")
 if user_input:
     communicate(user_input)
-    st.session_state["user_input"] = None  # 入力欄を消去
-
+    st.session_state["user_input"] = ""
 
 
 
