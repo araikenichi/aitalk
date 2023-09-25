@@ -33,9 +33,11 @@ def communicate():
     )
     bot_content = response['choices'][0]['message']['content']
     bot_message = {"role": "assistant", "content": bot_content}
-
     messages.append(bot_message)
+    
+    st.session_state["user_input"] = ""  # 入力欄をクリア
     st.session_state["messages"] = messages
+
 
 # ユーザー入力
 if "user_input" not in st.session_state:
