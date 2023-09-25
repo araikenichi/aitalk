@@ -52,8 +52,14 @@ import streamlit as st
 video_url = "https://user-images.githubusercontent.com/37874452/270353369-38139a9d-2428-454e-956a-23d860d5a6fc.mp4"
 
 st.markdown(
-    f"<div style='text-align: center;'><video width='300' autoplay loop muted><source src='{video_url}' type='video/mp4'></video></div>",
-    unsafe_allow_html=True,
+    f"""
+    <div style='text-align: center;'>
+        <video width='300' autoplay loop muted>
+            <source src='{video_url}' type='video/mp4'>
+        </video>
+    </div>
+    """, 
+    unsafe_allow_html=True
 )
 
 
