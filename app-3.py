@@ -57,19 +57,20 @@ st.markdown(
 )
 
 
-# チャットボットとのコミュニケーション
-def communicate(new_input=None):
+def communicate(new_input):
     messages = st.session_state["messages"]
-    if new_input:
-        user_message = {"role": "user", "content": new_input}
-        messages.append(user_message)
+    user_message = {"role": "user", "content": new_input}
+    messages.append(user_message)
+    
+    # OpenAI APIを使用した応答生成
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages
+    )
+    bot_message = response['choices'][0]['message']['content']
+    messages.append({"role": "assistant", "content": bot_message})
 
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=messages
-        )
-        bot_message = response['choices'][0]['message']['content']
-        messages.append({"role": "assistant", "content": bot_message})
+    st.session_state["user_input"] = ""  # ここで値をリセット
 
 
 
@@ -78,7 +79,7 @@ def communicate(new_input=None):
 user_input = st.text_input("message", key="user_input")
 if user_input:
     communicate(user_input)
-    st.session_state["user_input"] = ""
+
 
 
 
