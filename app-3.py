@@ -109,7 +109,38 @@ if st.session_state["messages"]:
 
         content_order = f"<span style='position: relative; {content_style}'>{message['content']}{tail_svg}</span>"
 
-        st.markdown(
-            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
-            unsafe_allow_html=True,
-        )
+        st.markdown("""
+<style>
+    .chat-bubble {
+        position: relative;
+        background-color: #ACAFAC;  /* Gray background for assistant */
+        border-radius: 10px;
+        padding: 10px;
+        width: fit-content;
+        margin-bottom: 10px;
+    }
+    .chat-bubble-user {
+        background-color: #0DAB26;  /* Green background for user */
+        color: white;
+    }
+    .chat-bubble::before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: -10px;
+        bottom: 0;
+        border: 5px solid transparent;
+        border-right-color: #ACAFAC;  /* Gray background for assistant */
+    }
+    .chat-bubble-user::before {
+        left: auto;
+        right: -10px;
+        border-left-color: #0DAB26;  /* Green background for user */
+        border-right-color: transparent;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown('<div class="chat-bubble">你好，有什么可以帮助您的？</div>', unsafe_allow_html=True)
+st.markdown('<div class="chat-bubble chat-bubble-user">你好，我有个问题。</div>', unsafe_allow_html=True)
