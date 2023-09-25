@@ -12,7 +12,7 @@ css_style = """
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
-    border-right: 10px solid #0DA225;  /* Green */
+    border-right: 10px solid #0DAB26;  /* Green */
     position: absolute;
     left: -10px;
     top: 10px;
