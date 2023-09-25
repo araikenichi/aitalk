@@ -10,19 +10,30 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 
 
-def communicate(new_input):
+# ...
+
+def communicate():
+    new_input = st.session_state["user_input"]
     messages = st.session_state.get("messages", [])
     user_message = {"role": "user", "content": new_input}
     messages.append(user_message)
-    
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages
-    )
-    bot_message = response['choices'][0]['message']['content']
-    messages.append({"role": "assistant", "content": bot_message})
+
+    # OpenAI API呼び出し（省略）
+
     st.session_state.messages = messages
-    st.session_state["user_input"] = ""
+    st.session_state["user_input"] = ""  # 修正箇所
+
+# ...
+
+# ユーザー入力
+if 'user_input' not in st.session_state:
+    st.session_state['user_input'] = ''
+
+user_input = st.text_input("Message", value=st.session_state['user_input'])
+
+if user_input != st.session_state['user_input']:
+    st.session_state['user_input'] = user_input
+    communicate()
 
 
 
@@ -48,21 +59,6 @@ st.markdown(
 
 
 
-
-# ユーザー入力（メッセージバーに影をつけるCSSを適用）
-user_input = st.text_input(
-    "Message", 
-    key="user_input", 
-    value=st.session_state.get("user_input", ""),
-    help="Type your message here"
-)
-st.markdown(
-    "<style>div[data-baseweb='input'] { box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); }</style>",
-    unsafe_allow_html=True,
-)
-
-if user_input:
-    communicate(user_input)
 
 
 
