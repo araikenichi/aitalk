@@ -118,23 +118,31 @@ if st.session_state["messages"]:
             content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px;"
             content_order = f"<div style='{arrow_style}'></div><span style='{content_style}'>{message['content']}</span>"
 
- # ユーザーメッセージの場合
+
+
+        # ユーザーメッセージの場合
+user_message = f"{message['content']}"  # 仮にメッセージ内容をこの変数に格納
 st.markdown(
     f"""
     <div style='display: flex; justify-content: flex-end; align-items: center;'>
-        <div style='width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #0DAB26; margin-right: -10px;'></div>
-        <div style='background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px;'>{message['content']}</div>
+        <div style='background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px; position: relative;'>
+            {user_message}
+            <div style='position: absolute; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #0DAB26; right: 10px; bottom: 0; transform: translateY(100%);'></div>
+        </div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
 # AIボットのメッセージの場合
+bot_message = f"{message['content']}"  # 仮にメッセージ内容をこの変数に格納
 st.markdown(
     f"""
     <div style='display: flex; justify-content: flex-start; align-items: center;'>
-        <div style='width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #ACAFAC; margin-left: -10px;'></div>
-        <div style='background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px;'>{message['content']}</div>
+        <div style='background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;'>
+            {bot_message}
+            <div style='position: absolute; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #ACAFAC; left: 10px; bottom: 0; transform: translateY(100%);'></div>
+        </div>
     </div>
     """,
     unsafe_allow_html=True,
