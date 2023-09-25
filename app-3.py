@@ -21,8 +21,8 @@ def communicate(new_input):
     )
     bot_message = response['choices'][0]['message']['content']
     messages.append({"role": "assistant", "content": bot_message})
-
     st.session_state.messages = messages
+    st.session_state.user_input = ""
 
 
 
@@ -31,12 +31,10 @@ st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
 
 
+# スペーサーでメッセージを下に押し出す
+for _ in range(20):
+    st.empty()
 
-
-from PIL import Image  # PILライブラリからImageクラスをインポート
-import requests
-from io import BytesIO
-import streamlit as st
 
 
 # 動画のURL
@@ -51,11 +49,23 @@ st.markdown(
 
 
 
+# ユーザー入力（メッセージバーに影をつけるCSSを適用）
+user_input = st.text_input(
+    "Message", 
+    key="user_input", 
+    value=st.session_state.get("user_input", ""),
+    help="Type your message here"
+)
+st.markdown(
+    "<style>div[data-baseweb='input'] { box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); }</style>",
+    unsafe_allow_html=True,
+)
 
-# ユーザー入力
-user_input = st.text_input("Message", key="user_input")
 if user_input:
     communicate(user_input)
+
+
+
 
 if st.session_state.get("messages"):
     messages = st.session_state.messages
@@ -73,4 +83,3 @@ if st.session_state.get("messages"):
             f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
             unsafe_allow_html=True,
         )
-
