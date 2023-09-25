@@ -96,21 +96,20 @@ if "messages" not in st.session_state:
 
 
 
-
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         if message["role"] == "user":
             message_align = "flex-end"
             content_style = "background-color: #08A221; color: black; padding: 10px; border-radius: 10px; position: relative;"
-            tail_style = "width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #08A221; position: absolute; right: 0; bottom: -10px;"
+            tail_style = "width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #08A221; position: absolute; right: 10px; bottom: 100%;"
         else:
             message_align = "flex-start"
             content_style = "background-color: #797B79; color: white; padding: 10px; border-radius: 10px; position: relative;"
-            tail_style = "width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #797B79; position: absolute; left: 0; bottom: -10px;"
+            tail_style = "width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #797B79; position: absolute; left: 10px; bottom: 100%;"
         
         content = f"""
-        <div style='display: flex; justify-content: {message_align}; align-items: center;'>
+        <div style='display: flex; justify-content: {message_align}; align-items: center; margin-bottom: 20px;'>
             <div style='{content_style}'>
                 {message['content']}
                 <div style='{tail_style}'></div>
