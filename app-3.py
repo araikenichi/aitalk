@@ -95,18 +95,17 @@ if "messages" not in st.session_state:
 
 
 
-
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         if message["role"] == "user":
             message_align = "flex-end"
             content_style = "background-color: #08A221; color: black; padding: 10px; border-radius: 10px; position: relative;"
-            tail_style = "width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #08A221; position: absolute; right: 0; bottom: 100%; transform: rotate(110deg);"
+            tail_style = "width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid #08A221; position: absolute; right: 0; bottom: 0;"
         else:
             message_align = "flex-start"
             content_style = "background-color: #797B79; color: white; padding: 10px; border-radius: 10px; position: relative;"
-            tail_style = "width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #797B79; position: absolute; left: 0; bottom: 100%; transform: rotate(300deg);"
+            tail_style = "width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid #797B79; position: absolute; left: 0; top: 10%;"
         
         content = f"""
         <div style='display: flex; justify-content: {message_align}; align-items: center; margin-bottom: 20px;'>
@@ -118,5 +117,6 @@ if st.session_state["messages"]:
         """
         
         st.markdown(content, unsafe_allow_html=True)
+
 
 
