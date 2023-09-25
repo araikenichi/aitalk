@@ -25,8 +25,7 @@ def communicate(new_input):
     st.session_state.messages = messages
 
 
-# ユーザーインターフェイスの構築
-st.write()
+
 # タイトルを中央に表示
 st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
@@ -49,19 +48,16 @@ st.markdown(
 )
 
 
+
+
+
+
+# ユーザー入力
 user_input = st.text_input("Message", key="user_input")
 if user_input:
     communicate(user_input)
 
-
-
-
-
-
-
-
-
-if st.session_state.messages:
+if st.session_state.get("messages"):
     messages = st.session_state.messages
     for message in messages:
         if message["role"] == "user":
