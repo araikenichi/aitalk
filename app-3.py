@@ -95,16 +95,40 @@ if user_input:
 
 
 
+
+
+# 既存のStreamlitアプリのコード
+# ...
+
+# カスタムCSSを適用
+st.markdown("""
+<style>
+    /* AIbot側のメッセージスタイル */
+    .bot-message {
+        background-color: #2c2c2c;  /* 背景色 */
+        color: white;  /* 文字色 */
+        padding: 10px;
+        border-radius: 10px;
+        margin: 5px;
+    }
+    /* ユーザ側のメッセージスタイル */
+    .user-message {
+        background-color: green;  /* 背景色 */
+        color: black;  /* 文字色 */
+        padding: 10px;
+        border-radius: 10px;
+        margin: 5px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# 既存のメッセージ表示ロジック
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         if message["role"] == "user":
-            message_style = "background-color: #DCF8C6; border-radius: 12px; padding: 10px; display: inline-block; color: black;"
-            message_align = "flex-end"
+            # ユーザのメッセージ
+            st.markdown(f"<div class='user-message'>{message['content']}</div>", unsafe_allow_html=True)
         else:
-            message_style = "background-color: #FFFFFF; border-radius: 12px; padding: 10px; display: inline-block; color: black;"
-            message_align = "flex-start"
-
-        st.markdown(
-            f"<div style='display: flex; justify-content: {message_align}; margin-bottom: 12px;'><div style='{message_style}'>{message['content']}</div></div>",
-            unsafe_allow_html=True,
+            # AIbotのメッセージ
+            st.markdown(f"<div class='bot-message'>{message['content']}</div>", unsafe_allow_html=True)
