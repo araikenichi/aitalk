@@ -6,59 +6,42 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 
 
-# st.session_stateを使いメッセージのやりとりを保存
+# Session state初期化
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [
-        {"role": "system", "content": ""}
-        ]
+    st.session_state["messages"] = [{"role": "system", "content": ""}]
 
 
 
-def communicate(new_input, language):
+
+# コミュニケーション関数
+def communicate(new_input, language="English"):
     messages = st.session_state["messages"]
     user_message = {"role": "user", "content": new_input}
     messages.append(user_message)
 
-    # OpenAI APIを使用して応答生成
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages
     )
     bot_content = response['choices'][0]['message']['content']
 
-    # 言語ごとに異なる「お姉さん風」の応答
     if language == "English":
-        bot_message = {
-            "role": "assistant",
-            "content": f"Sure, darling! 💕 {bot_content} How does that sound? ✨"
-        }
+        bot_message = {"role": "assistant", "content": f"Sure, darling! 💕 {bot_content}"}
     elif language == "日本語":
-        bot_message = {
-            "role": "assistant",
-            "content": f"わかったわ、ちゃんと聞いてるからね！💕 {bot_content} どうかしら、大丈夫？✨"
-        }
+        bot_message = {"role": "assistant", "content": f"わかったわ、ちゃんと聞いてるからね！💕 {bot_content}"}
     elif language == "中文":
-        bot_message = {
-            "role": "assistant",
-            "content": f"明白了，亲爱的！💕 {bot_content} 怎么样，满意吗？✨"
-        }
+        bot_message = {"role": "assistant", "content": f"明白了，亲爱的！💕 {bot_content}"}
 
     messages.append(bot_message)
     st.session_state["messages"] = messages
 
- bot_message = response["choices"][0]["message"]
-    messages.append(bot_message)
-
-    st.session_state["user_input"] = ""  # 入力欄を削除
 
 
+# UI部分
+st.write("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
+user_input = st.text_input("message", key="user_input")
 
-
-# ユーザーインターフェイスの構築
-st.write()
-# タイトルを中央に表示
-st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
 
 
@@ -113,34 +96,29 @@ def communicate(new_input):
 
 
 
-# ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
 if user_input:
     communicate(user_input)
-    st.session_state["user_input"] = None  # 入力欄を消去
-
-
-
-
-# 初期化部分
-if "messages" not in st.session_state:
-    st.session_state["messages"] = []
-
-
-
+    st.session_state["user_input"] = ""
 
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         if message["role"] == "user":
-            message_align = "flex-end"
-            content_style = "background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px;"
-            content_order = f"<span style='{content_style}'>{message['content']}</span>"
+            content_style = "background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px; position: relative;"
+            align_style = "flex-end"
         else:
-            message_align = "flex-start"
-            content_style = "background-color:#ACAFAC; color: white; padding: 10px; border-radius: 10px;"
-            content_order = f"<span style='{content_style}'>{message['content']}</span>"
+            content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;"
+            align_style = "flex-start"
+
+        content = message['content']
 
         st.markdown(
-            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
+            f"""
+            <div style='display: flex; justify-content: {align_style}; align-items: center;'>
+                <div style='{content_style}'>
+                    {content}
+                </div>
+            </div>
+            """,
             unsafe_allow_html=True,
         )
