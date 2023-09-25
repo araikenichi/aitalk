@@ -6,11 +6,10 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 
 
-# st.session_stateを使いメッセージのやりとりを保存
+# セッションの初期設定
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [
-        {"role": "", "content": ""}
-        ]
+    st.session_state["messages"] = [{"role": "system", "content": "}]
+
 
 
 
