@@ -100,34 +100,34 @@ st.markdown("""
 <style>
     .chat-bubble {
         position: relative;
-        background: #797B79;  //灰色背景
-        border-radius: 15px;
-        padding: 15px;
+        background-color: #f4f4f4;  // Gray background for assistant
+        border-radius: 10px;
+        padding: 10px;
         width: fit-content;
-        margin: 10px;
+        margin-bottom: 10px;
     }
-    .chat-bubble.green {
-        background: #08A221;  //绿色背景
+    .chat-bubble-user {
+        background-color: #0084ff;  // Blue background for user
+        color: white;
     }
-    .chat-bubble::after {
+    .chat-bubble::before {
         content: "";
         position: absolute;
-        left: 20px;
-        top: 100%;
         width: 0;
         height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 15px solid #797B79;  //灰色背景
+        left: -10px;
+        bottom: 0;
+        border: 5px solid transparent;
+        border-right-color: #f4f4f4;  // Gray background for assistant
     }
-    .chat-bubble.green::after {
-        border-top: 15px solid #08A221;  //绿色背景
+    .chat-bubble-user::before {
+        left: auto;
+        right: -10px;
+        border-left-color: #0084ff;  // Blue background for user
+        border-right-color: transparent;
     }
 </style>
-<div class="chat-bubble">
-    这是灰色的消息
-</div>
-<div class="chat-bubble green">
-    这是绿色的消息
-</div>
 """, unsafe_allow_html=True)
+
+st.markdown('<div class="chat-bubble">Hello, how can I assist you?</div>', unsafe_allow_html=True)
+st.markdown('<div class="chat-bubble chat-bubble-user">Hi, I have a question.</div>', unsafe_allow_html=True)
