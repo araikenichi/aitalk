@@ -12,7 +12,7 @@ css_style = """
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
-    border-right: 10px solid #08A221;  /* Green */
+    border-right: 10px solid #0DA225;  /* Green */
     position: absolute;
     left: -10px;
     top: 10px;
@@ -24,7 +24,7 @@ css_style = """
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
-    border-left: 10px solid  #797B79;  /* Grey */
+    border-left: 10px solid  #ACAFAC;  /* Grey */
     position: absolute;
     right: -10px;
     top: 10px;
@@ -144,11 +144,11 @@ if st.session_state["messages"]:
     for message in reversed(messages):
         if message["role"] == "user":
             message_align = "flex-end"
-            content_style = "background-color: #08A221; color: black; padding: 10px; border-radius: 10px;"
+            content_style = "background-color: #0DA225 color: black; padding: 10px; border-radius: 10px;"
             content_order = f"<span style='{content_style}'>{message['content']}</span>"
         else:
             message_align = "flex-start"
-            content_style = "background-color: #797B79; color: white; padding: 10px; border-radius: 10px;"
+            content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px;"
             content_order = f"<span style='{content_style}'>{message['content']}</span>"
 
         st.markdown(
