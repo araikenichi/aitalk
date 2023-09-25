@@ -104,32 +104,30 @@ if "messages" not in st.session_state:
 
 
 
+# Streamlitのコードの一部
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         if message["role"] == "user":
-            message_align = "flex-end"
-            arrow_style = "border: 10px solid; border-color: transparent transparent transparent #08A221;"
-            content_style = "background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px;"
-            content_order = f"<div style='{arrow_style}'></div><span style='{content_style}'>{message['content']}</span>"
+            content_style = "background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px; position: relative;"
+            arrow_style = "position: absolute; width: 12px; height: 12px; background-color: #0DAB26; clip-path: polygon(0% 0%, 100% 0%, 0% 100%); right: -6px; bottom: 10px;"
+            align_style = "flex-end"
         else:
-            message_align = "flex-start"
-            arrow_style = "border: 10px solid; border-color: transparent #797B79 transparent transparent;"
-            content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px;"
-            content_order = f"<div style='{arrow_style}'></div><span style='{content_style}'>{message['content']}</span>"
+            content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;"
+            arrow_style = "position: absolute; width: 12px; height: 12px; background-color: #ACAFAC; clip-path: polygon(0% 0%, 100% 0%, 0% 100%); left: -6px; bottom: 10px;"
+            align_style = "flex-start"
 
+        content = message['content']
 
+        st.markdown(
+            f"""
+            <div style='display: flex; justify-content: {align_style}; align-items: center;'>
+                <div style='{content_style}'>
+                    {content}
+                    <div style='{arrow_style}'></div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-        # ユーザーメッセージの場合
-user_message = f"{message['content']}"  # 仮にメッセージ内容をこの変数に格納
-st.markdown(
-    f"""
-    <div style='display: flex; justify-content: flex-end; align-items: center;'>
-        <div style='background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px; position: relative;'>
-            {user_message}
-            <div style='position: absolute; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #0DAB26; right: 10px; bottom: 0; transform: translateY(100%);'></div>
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
