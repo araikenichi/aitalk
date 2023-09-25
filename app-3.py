@@ -42,21 +42,20 @@ def communicate(user_input):
         model="gpt-3.5-turbo",
         messages=messages
     )
-    bot_message = response['choices'][0]['message']['content']
-    messages.append({"role": "assistant", "content": bot_message})
+
+    # API call to get bot message (ここでは仮の値を返す)
+    bot_message = {"role": "bot", "content": "Hello, this is the bot speaking!"}
+    messages.append(bot_message)
+    
 
 
 
 # ユーザー入力
-if "user_input" not in st.session_state:
-    st.session_state["user_input"] = ""
-
-user_input = st.text_input("Message", value=st.session_state["user_input"])
-
+user_input = st.text_input("Message", key="user_input")
 
 if user_input:
     communicate(user_input)
-    st.session_state["user_input"] = ""
+    st.session_state["user_input"] = ""  # Clear the text input
 
 
 
@@ -66,17 +65,21 @@ if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         if message["role"] == "user":
-            align_style = "flex-end"
             content_style = "background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px; position: relative;"
+            align_style = "flex-end"
         else:
-            align_style = "flex-start"
             content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;"
-        
+            align_style = "flex-start"
+
         content = message['content']
         st.markdown(
-            f"<div style='display: flex; justify-content: {align_style}; align-items: center;'>\
-                <div style='{content_style}'>{content}</div>\
-            </div>",
+            f"""
+            <div style='display: flex; justify-content: {align_style}; align-items: center;'>
+                <div style='{content_style}'>
+                    {content}
+                </div>
+            </div>
+            """,
             unsafe_allow_html=True,
         )
         
