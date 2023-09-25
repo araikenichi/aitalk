@@ -51,21 +51,6 @@ st.markdown(
 )
 
 
-def communicate(new_input):
-    messages = st.session_state["messages"]
-    user_message = {"role": "user", "content": new_input}
-    messages.append(user_message)
-    
-    # OpenAI APIを使用した応答生成
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages
-    )
-    bot_message = response['choices'][0]['message']['content']
-    messages.append({"role": "assistant", "content": bot_message})
-
-    st.session_state["user_input"] = ""  # ここで値をリセット
-
 
 
 
