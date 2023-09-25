@@ -100,16 +100,17 @@ if st.session_state["messages"]:
     for message in reversed(messages):
         if message["role"] == "user":
             message_align = "flex-end"
-            content_style = "background-color: #0DAB26; color: white; padding: 10px; border-radius: 10px;"
-            content_order = f"<span style='{content_style}'>{message['content']}</span>"
-            tail_style = "border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #0DAB26; margin-left: auto; margin-right: 5px; margin-top: -10px;"
+            content_style = "background-color: #0DAB26; color: white; padding: 10px; border-radius: 10px; position: relative;"
+            tail_style = "content: ''; position: absolute; right: 0; top: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-right: 10px solid #0DAB26;"
         else:
             message_align = "flex-start"
-            content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px;"
-            content_order = f"<span style='{content_style}'>{message['content']}</span>"
-            tail_style = "border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid #ACAFAC; margin-left: 5px; margin-right: auto; margin-top: -10px;"
+            content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;"
+            tail_style = "content: ''; position: absolute; left: 0; top: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid #ACAFAC;"
+
+        content_order = f"<span style='{content_style}'>{message['content']}<span style='{tail_style}'></span></span>"
 
         st.markdown(
-            f"<div style='display: flex; flex-direction: column; align-items: {message_align};'>{content_order}<div style='{tail_style}'></div></div>",
+            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
             unsafe_allow_html=True,
         )
+
