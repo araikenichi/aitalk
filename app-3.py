@@ -32,11 +32,16 @@ def communicate():
         messages=messages
     )
     bot_content = response['choices'][0]['message']['content']
-    bot_message = {"role": "assistant", "content": bot_content}
+    
+    # 人物設定に基づいたカスタムメッセージ
+    custom_content = f"親愛なる、私はあなたの恋人で、20歳の上海出身のかわいい先生よ。今日は何を教えてあげましょうか？💕 {bot_content}"
+    
+    bot_message = {"role": "assistant", "content": custom_content}
     messages.append(bot_message)
     
     st.session_state["user_input"] = ""  # 入力欄をクリア
     st.session_state["messages"] = messages
+
 
 
 # ユーザー入力
