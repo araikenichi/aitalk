@@ -121,15 +121,15 @@ if st.session_state["messages"]:
         content = message['content']
 
 st.markdown(
-    f"""
-    <div style='display: flex; justify-content: {align_style}; align-items: center;'>
-        <div style='{content_style}'>
-            {content}
-            <div style='{arrow_style}'></div>
-        </div>
-    </div>
+    """
+    <style>
+    body {
+        background-color: white;
+    }
+    </style>
     """,
     unsafe_allow_html=True,
 )
+
 
 
