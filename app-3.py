@@ -32,7 +32,8 @@ def communicate():
         messages=messages
     )
     bot_content = response['choices'][0]['message']['content']
-    bot_message = {"role": "assistant", "content":  {bot_content}"}
+    bot_message = {"role": "assistant", "content": bot_content}
+
     messages.append(bot_message)
     st.session_state["messages"] = messages
 
