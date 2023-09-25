@@ -40,7 +40,11 @@ user_input = st.text_input("message", key="user_input")
 # ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
 if user_input:
     communicate(user_input)
-    st.session_state["user_input"] = ""  # 入力欄を消去
+    st.session_state["temp_user_input"] = user_input  # 一時的な入力を保存
+    user_input = ""  # 入力欄をクリア（この部分が変更されました）
+
+# メッセージ表示のためのコード...
+
 
 
 
