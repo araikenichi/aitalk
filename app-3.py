@@ -21,6 +21,11 @@ st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
+
+# 動画のURL
+video_url = "https://user-images.githubusercontent.com/37874452/270353369-38139a9d-2428-454e-956a-23d860d5a6fc.mp4"
+
+
 # Video and spacer
 st.markdown(
     "<div style='text-align: center;'><video width='300' autoplay loop muted playsinline></video></div>",
