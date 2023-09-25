@@ -14,22 +14,39 @@ if "messages" not in st.session_state:
 
 
 
-# チャットボットとやりとりする関数
-def communicate():
+def communicate(new_input, language):
     messages = st.session_state["messages"]
-
-    user_message = {"role": "user", "content": st.session_state["user_input"]}
+    user_message = {"role": "user", "content": new_input}
     messages.append(user_message)
 
+    # OpenAI APIを使用して応答生成
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages
-    )  
+    )
+    bot_content = response['choices'][0]['message']['content']
 
-    bot_message = response["choices"][0]["message"]
+    # 言語ごとに異なる「お姉さん風」の応答
+    if language == "English":
+        bot_message = {
+            "role": "assistant",
+            "content": f"Sure, darling! 💕 {bot_content} How does that sound? ✨"
+        }
+    elif language == "日本語":
+        bot_message = {
+            "role": "assistant",
+            "content": f"わかったわ、ちゃんと聞いてるからね！💕 {bot_content} どうかしら、大丈夫？✨"
+        }
+    elif language == "中文":
+        bot_message = {
+            "role": "assistant",
+            "content": f"明白了，亲爱的！💕 {bot_content} 怎么样，满意吗？✨"
+        }
+
     messages.append(bot_message)
+    st.session_state["messages"] = messages
 
-    st.session_state["user_input"] = ""  # 入力欄を削除
+
 
 
 # ユーザーインターフェイスの構築
