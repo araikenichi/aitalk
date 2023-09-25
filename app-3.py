@@ -5,8 +5,9 @@ import openai
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 
-# 下部にウィジェットを配置するためのプレースホルダ
+# プレースホルダーの作成
 input_placeholder = st.empty()
+
 
 
 
@@ -23,13 +24,12 @@ def communicate(new_input):
     )
     bot_message = response['choices'][0]['message']['content']
     messages.append({"role": "assistant", "content": bot_message})
-    st.session_state.messages = messages
-
+    st.session_state["messages"] = messages
 
 # メッセージの表示
 if st.session_state.get("messages"):
     messages = st.session_state.get("messages")
-    for message in messages:  # 逆順ではない
+    for message in messages:
         if message["role"] == "user":
             message_align = "flex-end"
             content_style = "background-color: #08A221; color: black; padding: 10px; border-radius: 10px;"
@@ -42,20 +42,24 @@ if st.session_state.get("messages"):
             f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
             unsafe_allow_html=True,
         )
-        
+
+
+
 # ユーザーインターフェイスの構築
 st.write()
 # タイトルを中央に表示
 st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
 
-# ユーザー入力（影を追加するCSSも含む）
-user_input = input_placeholder.text_input("Message", key="user_input", help="Send a message")
+# ユーザー入力
+user_input = input_placeholder.text_input("Message", key="user_input")
 if user_input:
     communicate(user_input)
-    st.session_state.user_input = ""  # テキストボックスをクリア
+    st.session_state["user_input"] = ""  # エラーを避けるための修正点
 
-# カスタムCSSでテキストボックスに影を追加
+
+
+# カスタムCSS
 st.markdown("""
     <style>
         .stTextInput input {
@@ -93,10 +97,9 @@ st.markdown(
 
 
 
-
 # 初期化
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state["messages"] = []
 
 
 
