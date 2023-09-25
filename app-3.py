@@ -1,4 +1,5 @@
-import streamlit as st
+
+ import streamlit as st
 import openai
 
 # Streamlit Community Cloudの「Secrets」からOpenAI API keyを取得
@@ -10,42 +11,42 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 
 
-# ...
-
+# チャットボットとやりとりする関数
 def communicate():
-    new_input = st.session_state["user_input"]
-    messages = st.session_state.get("messages", [])
-    user_message = {"role": "user", "content": new_input}
+    messages = st.session_state["messages"]
+
+    user_message = {"role": "user", "content": st.session_state["user_input"]}
     messages.append(user_message)
 
-    # OpenAI API呼び出し（省略）
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages
+    )  
 
-    st.session_state.messages = messages
-    st.session_state["user_input"] = ""  # 修正箇所
+    bot_message = response["choices"][0]["message"]
+    messages.append(bot_message)
 
-# ...
-
-# ユーザー入力
-if 'user_input' not in st.session_state:
-    st.session_state['user_input'] = ''
-
-user_input = st.text_input("Message", value=st.session_state['user_input'])
-
-if user_input != st.session_state['user_input']:
-    st.session_state['user_input'] = user_input
-    communicate()
+    st.session_state["user_input"] = ""  # 入力欄を削除
 
 
-
+# ユーザーインターフェイスの構築
+st.write()
 # タイトルを中央に表示
 st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
 
 
-# スペーサーでメッセージを下に押し出す
-for _ in range(20):
-    st.empty()
 
+
+# st.session_stateを使いメッセージのやりとりを保存
+if "messages" not in st.session_state:
+    st.session_state["messages"] = []
+
+
+from PIL import Image  # PILライブラリからImageクラスをインポート
+import requests
+from io import BytesIO
+import streamlit as st
 
 
 # 動画のURL
@@ -62,18 +63,52 @@ st.markdown(
 
 
 
+# ユーザー入力
+user_input = st.text_input("message", key="user_input", on_change=communicate)
+# ...
 
-if st.session_state.get("messages"):
-    messages = st.session_state.messages
-    for message in messages:
+# チャットボットとのコミュニケーション
+def communicate(new_input):
+    messages = st.session_state["messages"]
+    user_message = {"role": "user", "content": new_input}
+    messages.append(user_message)
+    
+    # OpenAI APIを使用した応答生成
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages
+    )
+    bot_message = response['choices'][0]['message']['content']
+    messages.append({"role": "assistant", "content": bot_message})
+
+
+# ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
+if user_input:
+    communicate(user_input)
+    st.session_state["user_input"] = None  # 入力欄を消去
+
+
+
+
+# 初期化部分
+if "messages" not in st.session_state:
+    st.session_state["messages"] = []
+
+
+
+
+
+if st.session_state["messages"]:
+    messages = st.session_state["messages"]
+    for message in reversed(messages):
         if message["role"] == "user":
             message_align = "flex-end"
-            content_style = "background-color: #0DAB26; color: white; padding: 10px; border-radius: 10px; position: relative;"
+            content_style = "background-color: #08A221; color: black; padding: 10px; border-radius: 10px;"
+            content_order = f"<span style='{content_style}'>{message['content']}</span>"
         else:
             message_align = "flex-start"
-            content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;"
-
-        content_order = f"<div style='{content_style}'>{message['content']}</div>"
+            content_style = "background-color: #797B79; color: white; padding: 10px; border-radius: 10px;"
+            content_order = f"<span style='{content_style}'>{message['content']}</span>"
 
         st.markdown(
             f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
