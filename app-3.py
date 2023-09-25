@@ -107,11 +107,11 @@ if st.session_state["messages"]:
     for message in reversed(messages):
         if message["role"] == "user":
             message_align = "flex-end"
-            content_style = "background-color: #ACAFAC; color: black; padding: 10px; border-radius: 10px;"
+            content_style = "background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px;"
             content_order = f"<span style='{content_style}'>{message['content']}</span>"
         else:
             message_align = "flex-start"
-            content_style = "background-color: #0DAB26; color: white; padding: 10px; border-radius: 10px;"
+            content_style = "background-color:#ACAFAC; color: white; padding: 10px; border-radius: 10px;"
             content_order = f"<span style='{content_style}'>{message['content']}</span>"
 
         st.markdown(
