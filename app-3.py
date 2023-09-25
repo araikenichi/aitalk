@@ -56,14 +56,26 @@ def communicate():
 
 
 
-
+# ユーザー入力
+if "user_input" not in st.session_state:
+    st.session_state["user_input"] = ""
 
 user_input = st.text_input("message", value=st.session_state["user_input"], key="unique_user_input")
 
 if user_input:
+    temp_user_input = user_input  # 一時的な変数に値を保存
     st.session_state["user_input"] = user_input
-    communicate()
+    communicate(temp_user_input)  # 一時的な変数を引数として渡す
     st.session_state["user_input"] = ""
+
+# チャットボットとのコミュニケーション
+def communicate(new_input):
+    messages = st.session_state["messages"]
+    user_message = {"role": "user", "content": new_input}  # 一時的な変数の値を使用
+    messages.append(user_message)
+    # ...（以降は元のコードと同じ）
+
+
 
 # メッセージ表示
 if st.session_state["messages"]:
