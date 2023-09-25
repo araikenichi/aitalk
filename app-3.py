@@ -8,7 +8,7 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 # セッションの初期設定
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "system", "content": "}]
+    st.session_state["messages"] = [{"role": "system", "content""}]
 
 
 
