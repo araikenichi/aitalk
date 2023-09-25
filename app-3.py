@@ -54,6 +54,18 @@ def communicate(new_input):
     st.session_state["user_input"] = ""  # 入力欄を消去
 
 
+def communicate(user_input):
+    print(f"Received user input: {user_input}")
+
+if "user_input" not in st.session_state:
+    st.session_state["user_input"] = ""
+
+user_input = st.text_input("Message", value=st.session_state["user_input"])
+
+if user_input:
+    print("User input detected.")
+    communicate(user_input)
+    st.session_state["user_input"] = ""
 
 
 
