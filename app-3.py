@@ -101,7 +101,7 @@ st.markdown("""
     .chat-bubble {
         position: relative;
         background: #797B79;  //灰色背景
-        border-radius: 5px;
+        border-radius: 15px;
         padding: 15px;
         width: fit-content;
         margin: 10px;
