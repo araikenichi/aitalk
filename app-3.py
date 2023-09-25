@@ -56,7 +56,6 @@ if "messages" not in st.session_state:
 
         
 
-from PIL import Image  # PILライブラリからImageクラスをインポート
 import requests
 from io import BytesIO
 import streamlit as st
