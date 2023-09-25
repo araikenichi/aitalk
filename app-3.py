@@ -43,7 +43,7 @@ st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
 # st.session_stateを使いメッセージのやりとりを保存
 if "messages" not in st.session_state:
-    st.session_state["messages"] = []
+    st.session_state[""] = []
 
 
 from PIL import Image  # PILライブラリからImageクラスをインポート
@@ -97,7 +97,8 @@ if user_input:
 
 # 初期化部分
 if "messages" not in st.session_state:
-    st.session_state[""] = []
+    st.session_state["messages"] = []
+
 
 
 
