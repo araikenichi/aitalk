@@ -104,7 +104,6 @@ if "messages" not in st.session_state:
 
 
 
-# Streamlitのコードの一部
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
@@ -117,20 +116,16 @@ if st.session_state["messages"]:
             arrow_style = "position: absolute; width: 12px; height: 12px; background-color: #ACAFAC; clip-path: polygon(0% 0%, 100% 0%, 0% 100%); left: -6px; bottom: 10px;"
             align_style = "flex-start"
 
-        
         content = message['content']
 
-
-st.markdown(
-    f"""
-    <div style='display: flex; justify-content: {align_style}; align-items: center;'>
-        <div style='{content_style}'>
-            {content}
-            <div style='{arrow_style}'></div>
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-
+        st.markdown(
+            f"""
+            <div style='display: flex; justify-content: {align_style}; align-items: center;'>
+                <div style='{content_style}'>
+                    {content}
+                    <div style='{arrow_style}'></div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
