@@ -9,7 +9,7 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 # st.session_stateを使いメッセージのやりとりを保存
 if "messages" not in st.session_state:
     st.session_state["messages"] = [
-        {"role": "system", "content": ""}
+        {"role": "", "content": ""}
         ]
 
 
@@ -43,7 +43,7 @@ st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
 # st.session_stateを使いメッセージのやりとりを保存
 if "messages" not in st.session_state:
-    st.session_state[""] = []
+    st.session_state["messages"] = []
 
 
 from PIL import Image  # PILライブラリからImageクラスをインポート
