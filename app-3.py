@@ -56,9 +56,7 @@ def communicate():
 
 
 
-# ユーザー入力
-if "user_input" not in st.session_state:
-    st.session_state["user_input"] = ""
+
 
 user_input = st.text_input("message", value=st.session_state["user_input"], key="unique_user_input")
 
