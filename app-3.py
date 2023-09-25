@@ -96,45 +96,38 @@ if "messages" not in st.session_state:
 
 
 
-# StreamlitのMarkdownでCSSを適用
-st.markdown(
-    f"""
-    <style>
-        .message-box {{
-            position: relative;
-            background-color: #797B79;  # グレー
-            padding: 10px;
-            border-radius: 10px;
-        }}
-        .message-box.green {{
-            background-color: #08A221;  # 緑
-        }}
-        .message-box::after {{
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-style: solid;
-        }}
-        .message-box.green::after {{
-            border-color: #08A221 transparent transparent transparent;
-            border-width: 10px 10px 0 0;
-            top: 100%;
-            left: 50%;
-        }}
-        .message-box::after {{
-            border-color: #797B79 transparent transparent transparent;
-            border-width: 10px 10px 0 0;
-            top: 100%;
-            left: 20%;
-        }}
-    </style>
-    <div class="message-box">
-        グレーのメッセージ
-    </div>
-    <div class="message-box green">
-        緑のメッセージ
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+st.markdown("""
+<style>
+    .chat-bubble {
+        position: relative;
+        background: #797B79;  //灰色背景
+        border-radius: 5px;
+        padding: 15px;
+        width: fit-content;
+        margin: 10px;
+    }
+    .chat-bubble.green {
+        background: #08A221;  //绿色背景
+    }
+    .chat-bubble::after {
+        content: "";
+        position: absolute;
+        left: 20px;
+        top: 100%;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 15px solid #797B79;  //灰色背景
+    }
+    .chat-bubble.green::after {
+        border-top: 15px solid #08A221;  //绿色背景
+    }
+</style>
+<div class="chat-bubble">
+    这是灰色的消息
+</div>
+<div class="chat-bubble green">
+    这是绿色的消息
+</div>
+""", unsafe_allow_html=True)
