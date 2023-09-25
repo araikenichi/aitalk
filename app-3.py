@@ -95,10 +95,6 @@ if user_input:
 
 
 
-# 初期化部分
-if "messages" not in st.session_state:
-    st.session_state["messages"] = []
-
 
 
 
@@ -116,7 +112,15 @@ if st.session_state["messages"]:
 
         content = message['content']
 
-       
+        st.markdown(
+            f"""
+            <div style='display: flex; justify-content: {align_style}; align-items: center;'>
+                <div style='{content_style}'>
+                    {content}
+                    <div style='{arrow_style}'></div>
+                </div>
+            </div>
+            """,
             unsafe_allow_html=True,
         )
 
