@@ -113,7 +113,7 @@ if st.session_state["messages"]:
             align_style = "flex-end"
         else:
             content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;"
-            arrow_style = "position: absolute; width: 12px; height: 12px; background-color: #ACAFAC; clip-path: polygon(0% 0%, 100% 0%, 0% 100%); left: -6px; bottom: 10px;"
+            arrow_style = "position: absolute; width: 12px; height: 12px; background-color: #ACAFAC; clip-path: polygon(100% 0%, 0% 100%, 100% 100%); left: -6px; bottom: 10px;"
             align_style = "flex-start"
 
         content = message['content']
