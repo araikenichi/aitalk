@@ -31,22 +31,23 @@ if "messages" not in st.session_state:
 
 """
 
-# st.session_stateを使いメッセージのやりとりを保存
 def communicate(user_input):
     messages = st.session_state["messages"]
-    user_message = {"role": "user", "content": user_input}
-    messages.append(user_message)
-    
-    # OpenAI APIを使用した応答生成（適宜調整してください）
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages
-    )
+    print("Sending the following messages to OpenAI API:")
+    print(messages)
 
-    # API call to get bot message (ここでは仮の値を返す)
-    bot_message = {"role": "bot", "content": "Hello, this is the bot speaking!"}
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages
+        )
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return
+
+    bot_message = response["choices"][0]["message"]
     messages.append(bot_message)
-    
+
 
 
 
