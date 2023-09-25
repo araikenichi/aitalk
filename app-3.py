@@ -39,18 +39,18 @@ st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
 
 
-# カスタムJavaScriptで背景色とテキスト色を設定
-custom_js = """
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    document.body.style.backgroundColor = "white";
-    document.body.style.color = "black";
-  });
-</script>
-"""
+from streamlit.components.v1 import html
 
-# JavaScriptを追加
-st.markdown(custom_js, unsafe_allow_html=True)
+# このHTMLをStreamlitアプリの適当な位置に挿入
+html("""
+    <style>
+        body {
+            background-color: white !important;
+            color: black !important;
+        }
+    </style>
+""")
+
 
 
 
