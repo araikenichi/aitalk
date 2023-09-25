@@ -133,20 +133,3 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
-# AIボットのメッセージの場合
-bot_message = f"{message['content']}"  # 仮にメッセージ内容をこの変数に格納
-st.markdown(
-    f"""
-    <div style='display: flex; justify-content: flex-start; align-items: center;'>
-        <div style='background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;'>
-            {bot_message}
-            <div style='position: absolute; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #ACAFAC; left: 10px; bottom: 0; transform: translateY(100%);'></div>
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-
-
