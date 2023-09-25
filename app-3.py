@@ -55,7 +55,9 @@ st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 user_input = input_placeholder.text_input("Message", key="user_input")
 if user_input:
     communicate(user_input)
-    st.session_state["user_input"] = ""  # エラーを避けるための修正点
+    if "user_input" in st.session_state:
+    st.session_state["user_input"] = ""
+
 
 
 
