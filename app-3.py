@@ -105,10 +105,13 @@ st.markdown("""
         padding: 10px;
         width: fit-content;
         margin-bottom: 10px;
+        margin-left: 10px;
     }
     .chat-bubble-user {
         background-color: #0DAB26;  /* Green background for user */
         color: white;
+        margin-left: auto;
+        margin-right: 10px;
     }
     .chat-bubble::before {
         content: "";
@@ -116,18 +119,28 @@ st.markdown("""
         width: 0;
         height: 0;
         left: -10px;
-        bottom: 0;
+        bottom: 70%;  /* Move upward by 70% */
         border: 5px solid transparent;
         border-right-color: #ACAFAC;  /* Gray background for assistant */
     }
     .chat-bubble-user::before {
         left: auto;
         right: -10px;
+        bottom: 20%;  /* Move upward by 20% */
         border-left-color: #0DAB26;  /* Green background for user */
         border-right-color: transparent;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .container-user {
+        align-items: flex-end;
     }
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="chat-bubble">你好，有什么可以帮助您的？</div>', unsafe_allow_html=True)
-st.markdown('<div class="chat-bubble chat-bubble-user">你好，我有个问题。</div>', unsafe_allow_html=True)
+st.markdown('<div class="container"><div class="chat-bubble"></div></div>', unsafe_allow_html=True)
+st.markdown('<div class="container container-user"><div class="chat-bubble chat-bubble-user"></div></div>', unsafe_allow_html=True)
+
