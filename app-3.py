@@ -10,7 +10,6 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 
 
-# チャットボットとやりとりする関数
 def communicate(new_input):
     messages = st.session_state.get("messages", [])
     user_message = {"role": "user", "content": new_input}
@@ -25,7 +24,6 @@ def communicate(new_input):
 
     st.session_state.messages = messages
 
-st.title("LISA")
 
 # ユーザーインターフェイスの構築
 st.write()
