@@ -4,31 +4,47 @@ import openai
 # Streamlit Community Cloudの「Secrets」からOpenAI API keyを取得
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
+# UI部分
+st.markdown("<h1 style='text-align: center;'>LISA - 20歳、お姉さん系💕</h1>", unsafe_allow_html=True)
+
+# 動画のURL
+video_url = "https://user-images.githubusercontent.com/37874452/270353369-38139a9d-2428-454e-956a-23d860d5a6fc.mp4"
+st.markdown(
+    f"<div style='text-align: center;'><video width='300' autoplay loop muted><source src='{video_url}' type='video/mp4'></video></div>",
+    unsafe_allow_html=True,
+)
+
 # Session state初期化
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "system", "content": ""}]
 
 # コミュニケーション関数
-def communicate(new_input, language="English"):
+def communicate():
+    new_input = st.session_state["user_input"]
+    language = "English"  # ここで言語設定をする
     messages = st.session_state["messages"]
     user_message = {"role": "user", "content": new_input}
     messages.append(user_message)
 
-    # OpenAI APIを使用して応答生成
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages
     )
     bot_content = response['choices'][0]['message']['content']
-    bot_message = {"role": "assistant", "content": f"{bot_content}"}
+    bot_message = {"role": "assistant", "content": f"Sure, darling! 💕 {bot_content}"}
     messages.append(bot_message)
     st.session_state["messages"] = messages
 
-# UI部分
-st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
-
 # ユーザー入力
-user_input = st.text_input("message", key="unique_user_input", on_change=communicate)
+if "user_input" not in st.session_state:
+    st.session_state["user_input"] = ""
+
+user_input = st.text_input("message", value=st.session_state["user_input"], key="unique_user_input")
+
+if user_input:
+    st.session_state["user_input"] = user_input
+    communicate()
+    st.session_state["user_input"] = ""
 
 # メッセージ表示
 if st.session_state["messages"]:
@@ -42,7 +58,6 @@ if st.session_state["messages"]:
             align_style = "flex-start"
 
         content = message['content']
-
         st.markdown(
             f"""
             <div style='display: flex; justify-content: {align_style}; align-items: center;'>
