@@ -37,10 +37,15 @@ def communicate(new_input, language="English"):
 
 
 
+# ...前の部分は変わらず
+
 # UI部分
 st.write("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
-user_input = st.text_input("message", key="user_input")
+# keyをユニークなものに変更
+user_input = st.text_input("message", key="unique_user_input", on_change=communicate)
+
+# ...後の部分も変わらず
 
 
 
