@@ -1,8 +1,6 @@
 import streamlit as st
 import openai
 
-
-
 # Streamlit Community Cloudの「Secrets」からOpenAI API keyを取得
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
@@ -10,39 +8,32 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 # st.session_stateを使いメッセージのやりとりを保存
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "system", "content": ""}]
+    st.session_state["messages"] = [
+        {"role": "system", "content": ""}
+        ]
 
 
 
 # チャットボットとやりとりする関数
-def communicate(new_input):
+def communicate():
     messages = st.session_state["messages"]
 
-    user_message = {"role": "user", "content":new_input}
+    user_message = {"role": "user", "content": st.session_state["user_input"]}
     messages.append(user_message)
-    # OpenAI APIを使用して応答生成
+
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages
     )  
 
-    bot_message = {"role": "assistant", "content": response['choices'][0]['message']['content']}
+    bot_message = response["choices"][0]["message"]
     messages.append(bot_message)
 
-    st.session_state["messages"] = message # 入力欄を削除
+    st.session_state["user_input"] = ""  # 入力欄を削除
 
 
 # ユーザーインターフェイスの構築
-st.maekdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
-
-# ユーザー入力欄
-user_input = st.text_input("Message", key="user_input")
-
-# 新しいメッセージがあれば通信
-if user_input:
-    communicate(user_input)
-    st.session_state["user_input"] = ""  # 入力欄をクリア
-
+st.write()
 # タイトルを中央に表示
 st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
@@ -111,29 +102,19 @@ if "messages" not in st.session_state:
 
 
 
-# メッセージの表示
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         if message["role"] == "user":
-            align_style = "flex-end"
-            content_style = "background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px; position: relative;"
-            arrow_style = "position: absolute; width: 12px; height: 12px; background-color: #0DAB26; clip-path: polygon(0% 0%, 100% 0%, 0% 100%); right: -6px; bottom: 10px;"
+            message_align = "flex-end"
+            content_style = "background-color: #08A221; color: black; padding: 10px; border-radius: 10px;"
+            content_order = f"<span style='{content_style}'>{message['content']}</span>"
         else:
-            align_style = "flex-start"
-            content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;"
-            arrow_style = "position: absolute; width: 12px; height: 12px; background-color: #ACAFAC; clip-path: polygon(100% 0%, 0% 100%, 100% 100%); left: -6px; bottom: 10px;"
-        
-        content = message["content"]
-        
+            message_align = "flex-start"
+            content_style = "background-color: #797B79; color: white; padding: 10px; border-radius: 10px;"
+            content_order = f"<span style='{content_style}'>{message['content']}</span>"
+
         st.markdown(
-            f"""
-            <div style='display: flex; justify-content: {align_style}; align-items: center;'>
-                <div style='{content_style}'>
-                    {content}
-                    <div style='{arrow_style}'></div>
-                </div>
-            </div>
-            """,
+            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
             unsafe_allow_html=True,
         )
