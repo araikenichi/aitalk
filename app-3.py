@@ -44,7 +44,6 @@ def communicate():
     # 既存のコード
     # ...
     st.session_state["user_input"] = ""  # 入力欄をクリア
-    st.write("Input cleared!")  # デバッグ用
 
 
 
