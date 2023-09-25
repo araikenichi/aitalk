@@ -40,9 +40,8 @@ def communicate():
     bot_message = {"role": "assistant", "content": custom_content}
     messages.append(bot_message)
     
-       if some_condition:
-    # do something
-    st.session_state["user_input"] = ""  # 入力欄をクリア
+     # do something
+st.session_state["user_input"] = ""  # 入力欄をクリア
 
 
 
