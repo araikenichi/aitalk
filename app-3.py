@@ -93,6 +93,9 @@ if user_input:
 
 
 
+# 初期化部分
+if "messages" not in st.session_state:
+    st.session_state["messages"] = []
 
 
 
@@ -101,15 +104,18 @@ if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         if message["role"] == "user":
-            speaker_icon = "<img src='https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png' width='60' style='vertical-align: middle; float: right;'>"
             message_align = "flex-end"
-            content_order = f"<span style='margin-left: 10px; text-align: right;'>{message['content']}</span>{speaker_icon}"
+            background_color = "rgba(0, 255, 0, 0.3)"  # 明るい緑
+            text_color = "black"
+            content_order = f"<span style='background-color: {background_color}; color: {text_color}; padding: 10px; border-radius: 10px;'>{message['content']}</span>"
         else:
-            speaker_icon = "<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: middle; float: left;'>"
             message_align = "flex-start"
-            content_order = f"{speaker_icon}<span style='margin-left: 10px; text-align: left;'>{message['content']}</span>"
+            background_color = "rgba(128, 128, 128, 0.3)"  # 明るいグレー
+            text_color = "white"
+            content_order = f"<span style='background-color: {background_color}; color: {text_color}; padding: 10px; border-radius: 10px;'>{message['content']}</span>"
 
         st.markdown(
             f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
             unsafe_allow_html=True,
         )
+
