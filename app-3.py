@@ -5,7 +5,7 @@ import openai
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 # UI部分
-st.markdown("<h1 style='text-align: center;'>LISA - 20歳、お姉さん系💕</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
 # 動画のURL
 video_url = "https://user-images.githubusercontent.com/37874452/270353369-38139a9d-2428-454e-956a-23d860d5a6fc.mp4"
@@ -16,7 +16,8 @@ st.markdown(
 
 # Session state初期化
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "system", "content": ""}]
+    st.session_state["messages"] = []
+
 
 # コミュニケーション関数
 def communicate():
@@ -31,7 +32,7 @@ def communicate():
         messages=messages
     )
     bot_content = response['choices'][0]['message']['content']
-    bot_message = {"role": "assistant", "content": f"Sure, darling! 💕 {bot_content}"}
+    bot_message = {"role": "assistant", "content":  {bot_content}"}
     messages.append(bot_message)
     st.session_state["messages"] = messages
 
