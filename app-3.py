@@ -54,12 +54,6 @@ if st.session_state["messages"]:
 
 
 
-
-
-
-if st.session_state["messages"]:
-    messages = st.session_state["messages"]
-    for message in reversed(messages):
         if message["role"] == "user":
             message_align = "flex-end"
             content_style = "background-color: #08A221; color: black; padding: 10px; border-radius: 10px;"
