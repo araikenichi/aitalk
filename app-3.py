@@ -36,9 +36,9 @@ if "messages" not in st.session_state:
         {"role": "system", "content": system_prompt}
         ]
 
-# チャットボットとやりとりする関数
-def communicate():
+def communicate(new_input):
     messages = st.session_state["messages"]
+    # 処理...
 
     user_message = {"role": "user", "content": st.session_state["user_input"]}
     messages.append(user_message)
