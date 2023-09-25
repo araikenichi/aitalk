@@ -54,7 +54,11 @@ def communicate(new_input):
     st.session_state["user_input"] = ""  # 入力欄を消去
 
 
-
+# チャットボットとやりとりする関数
+def communicate(input_message):
+    messages = st.session_state["messages"]
+    # ここで input_message を使用する処理
+    # ...
 
 # ユーザー入力
 if "user_input" not in st.session_state:
@@ -64,16 +68,9 @@ user_input = st.text_input("message", value=st.session_state["user_input"], key=
 
 if user_input:
     temp_user_input = user_input  # 一時的な変数に値を保存
-    st.session_state["user_input"] = user_input
     communicate(temp_user_input)  # 一時的な変数を引数として渡す
-    st.session_state["user_input"] = ""
+    st.session_state["user_input"] = ""  # この行をcommunicate()後に移動
 
-# チャットボットとのコミュニケーション
-def communicate(new_input):
-    messages = st.session_state["messages"]
-    user_message = {"role": "user", "content": new_input}  # 一時的な変数の値を使用
-    messages.append(user_message)
-    # ...（以降は元のコードと同じ）
 
 
 
