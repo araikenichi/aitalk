@@ -39,18 +39,6 @@ st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
 
 
-from streamlit.components.v1 import html
-
-# このHTMLをStreamlitアプリの適当な位置に挿入
-html("""
-    <style>
-        body {
-            background-color: white !important;
-            color: black !important;
-        }
-    </style>
-""")
-
 
 
 
