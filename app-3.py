@@ -101,11 +101,11 @@ if st.session_state["messages"]:
         if message["role"] == "user":
             message_align = "flex-end"
             content_style = "background-color: #0DAB26; color: white; padding: 10px; border-radius: 10px;"
-            tail_svg = """<svg height='20' width='20' style='position: absolute; right: 0; bottom: 0;'><polygon points='0,0 0,20 20,0' style='fill:#0DAB26;'></polygon></svg>"""
+            tail_svg = """<svg height='20' width='50' style='position: absolute; right: 40; bottom: 0;'><polygon points='0,0 20, 20,0' style='fill:#0DAB26;'></polygon></svg>"""
         else:
             message_align = "flex-start"
             content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px;"
-            tail_svg = """<svg height='20' width='20' style='position: absolute; left: 0; bottom: 0;'><polygon points='0,0 20,0 0,20' style='fill:#ACAFAC;'></polygon></svg>"""
+            tail_svg = """<svg height='70' width='40' style='position: absolute; left: 40; bottom: 0;'><polygon points='0,0 20,0 0,20' style='fill:#ACAFAC;'></polygon></svg>"""
 
         content_order = f"<span style='position: relative; {content_style}'>{message['content']}{tail_svg}</span>"
 
