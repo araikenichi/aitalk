@@ -54,27 +54,6 @@ def communicate(new_input):
     st.session_state["user_input"] = ""  # 入力欄を消去
 
 
-# チャットボットとやりとりする関数
-def communicate(input_message):
-    try:
-        print("Communicate function called.")  # デバッグ用
-        messages = st.session_state["messages"]
-        # ここで input_message を使用する処理
-        # ...
-        print("Communicate function completed.")  # デバッグ用
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
-# ユーザー入力
-if "user_input" not in st.session_state:
-    st.session_state["user_input"] = ""
-
-user_input = st.text_input("message", value=st.session_state["user_input"], key="unique_user_input")
-
-if user_input:
-    temp_user_input = user_input  # 一時的な変数に値を保存
-    communicate(temp_user_input)  # 一時的な変数を引数として渡す
-    st.session_state["user_input"] = ""  # この行をcommunicate()後に移動
 
 
 
