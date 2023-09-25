@@ -57,28 +57,30 @@ st.markdown(
 )
 
 
+# チャットボットとのコミュニケーション
+def communicate(new_input=None):
+    messages = st.session_state["messages"]
+    if new_input:
+        user_message = {"role": "user", "content": new_input}
+        messages.append(user_message)
 
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages
+        )
+        bot_message = response['choices'][0]['message']['content']
+        messages.append({"role": "assistant", "content": bot_message})
 
 
 
 
 # ユーザー入力
-user_input = st.text_input("message", key="user_input", on_change=communicate)
-# ...
+user_input = st.text_input("message", key="user_input")
+if user_input:
+    communicate(user_input)
+    st.session_state["user_input"] = None  # 入力欄を消去
 
-# チャットボットとのコミュニケーション
-def communicate(new_input):
-    messages = st.session_state["messages"]
-    user_message = {"role": "user", "content": new_input}
-    messages.append(user_message)
-    
-    # OpenAI APIを使用した応答生成
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages
-    )
-    bot_message = response['choices'][0]['message']['content']
-    messages.append({"role": "assistant", "content": bot_message})
+
 
 
 # ユーザーが新しいメッセージを入力した場合にcommunicate関数を呼び出す
@@ -100,7 +102,7 @@ if "messages" not in st.session_state:
 
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
-    for message in messages:  # reversedを削除して、新しいメッセージが下に来るように
+    for message in messages:
         if message["role"] == "user":
             message_align = "flex-end"
             content_style = "background-color: #0DAB26; color: white; padding: 10px; border-radius: 10px;"
