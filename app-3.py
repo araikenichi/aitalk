@@ -96,26 +96,45 @@ if "messages" not in st.session_state:
 
 
 
-if st.session_state["messages"]:
-    messages = st.session_state["messages"]
-    for message in reversed(messages):
-        if message["role"] == "user":
-            message_align = "flex-end"
-            content_style = "background-color: #08A221; color: black; padding: 10px; border-radius: 10px; position: relative;"
-            tail_style = "width: 15px; height: 15px; background-color: #08A221; position: absolute; bottom: 0; right: -7px; clip-path: polygon(100% 0%, 0 0%, 50% 100%);"
-        else:
-            message_align = "flex-start"
-            content_style = "background-color: #797B79; color: white; padding: 10px; border-radius: 10px; position: relative;"
-            tail_style = "width: 15px; height: 15px; background-color: #797B79; position: absolute; top: 50%; left: -7px; clip-path: polygon(0% 0%, 100% 0%, 50% 100%);"
-        
-        content = f"""
-        <div style='display: flex; justify-content: {message_align}; align-items: center; margin-bottom: 20px;'>
-            <div style='{content_style}'>
-                {message['content']}
-                <div style='{tail_style}'></div>
-            </div>
-        </div>
-        """
-        
-        st.markdown(content, unsafe_allow_html=True)
-
+# StreamlitのMarkdownでCSSを適用
+st.markdown(
+    f"""
+    <style>
+        .message-box {{
+            position: relative;
+            background-color: #797B79;  # グレー
+            padding: 10px;
+            border-radius: 10px;
+        }}
+        .message-box.green {{
+            background-color: #08A221;  # 緑
+        }}
+        .message-box::after {{
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }}
+        .message-box.green::after {{
+            border-color: #08A221 transparent transparent transparent;
+            border-width: 10px 10px 0 0;
+            top: 100%;
+            left: 50%;
+        }}
+        .message-box::after {{
+            border-color: #797B79 transparent transparent transparent;
+            border-width: 10px 10px 0 0;
+            top: 100%;
+            left: 20%;
+        }}
+    </style>
+    <div class="message-box">
+        グレーのメッセージ
+    </div>
+    <div class="message-box green">
+        緑のメッセージ
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
