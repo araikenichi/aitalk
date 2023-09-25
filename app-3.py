@@ -15,6 +15,12 @@ if "messages" not in st.session_state:
 
 
 # チャットボットとやりとりする関数
+
+ system_prompt = """
+    あなたは僕の彼女とします、僕を恋人として接してください、...
+    """
+
+
 def communicate():
     messages = st.session_state["messages"]
 
