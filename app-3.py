@@ -33,7 +33,7 @@ def communicate():
 
 
 # ユーザーインターフェイスの構築
-st.write("")
+st.write()
 # タイトルを中央に表示
 st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
@@ -41,7 +41,9 @@ st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
 
 
-
+# st.session_stateを使いメッセージのやりとりを保存
+if "messages" not in st.session_state:
+    st.session_state["messages"] = []
 
 
 from PIL import Image  # PILライブラリからImageクラスをインポート
@@ -105,17 +107,14 @@ if st.session_state["messages"]:
     for message in reversed(messages):
         if message["role"] == "user":
             message_align = "flex-end"
-            background_color = "rgba(0, 255, 0, 0.3)"  # 明るい緑
-            text_color = "black"
-            content_order = f"<span style='background-color: {background_color}; color: {text_color}; padding: 10px; border-radius: 10px;'>{message['content']}</span>"
+            content_style = "background-color: #057016; color: black; padding: 10px; border-radius: 10px;"
+            content_order = f"<span style='{content_style}'>{message['content']}</span>"
         else:
             message_align = "flex-start"
-            background_color = "rgba(128, 128, 128, 0.3)"  # 明るいグレー
-            text_color = "white"
-            content_order = f"<span style='background-color: {background_color}; color: {text_color}; padding: 10px; border-radius: 10px;'>{message['content']}</span>"
+            content_style = "background-color: #646161; color: white; padding: 10px; border-radius: 10px;"
+            content_order = f"<span style='{content_style}'>{message['content']}</span>"
 
         st.markdown(
             f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
             unsafe_allow_html=True,
         )
-
