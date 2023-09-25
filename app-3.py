@@ -121,12 +121,15 @@ if st.session_state["messages"]:
 
         st.markdown(
             f"""
-            <div style='display: flex; justify-content: {align_style}; align-items: center;'>
-                <div style='{content_style}'>
-                    {content}
-                    <div style='{arrow_style}'></div>
-                </div>
-            </div>
+
+          <!-- AI Botのメッセージの場合 -->
+<div style='display: flex; justify-content: flex-start; align-items: center;'>
+    <div style='background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;'>
+        {bot_message}
+        <div style='position: absolute; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 10px solid #ACAFAC; left: 10px; bottom: 0; transform: translateY(100%);'></div>
+    </div>
+</div>
+
             """,
             unsafe_allow_html=True,
         )
