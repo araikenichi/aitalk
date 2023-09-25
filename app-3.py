@@ -46,16 +46,7 @@ if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
 
-
-    
-    system_prompt = """
-    あなたは僕の彼女とします、僕を恋人として接してください、...
-    """
-    st.session_state["messages"] = [
-        {"role": "system", "content": system_prompt}
-
-        
-
+from PIL import Image  # PILライブラリからImageクラスをインポート
 import requests
 from io import BytesIO
 import streamlit as st
