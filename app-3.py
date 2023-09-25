@@ -95,19 +95,22 @@ if "messages" not in st.session_state:
 
 
 
+# メッセージ入力欄をページの最後に表示
+user_input = st.text_input("Message", key="user_input")
+
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
-    for message in reversed(messages):
+    for message in messages:  # reversedを削除して、新しいメッセージが下に来るように
         if message["role"] == "user":
             message_align = "flex-end"
-            content_style = "background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px;"
-            content_order = f"<span style='{content_style}'>{message['content']}</span>"
+            content_style = "background-color: #0DAB26; color: white; padding: 10px; border-radius: 10px;"
         else:
             message_align = "flex-start"
             content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px;"
-            content_order = f"<span style='{content_style}'>{message['content']}</span>"
+
+        content_order = f"<span style='{content_style}'>{message['content']}</span>"
 
         st.markdown(
-            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
+            f"<div style='display: flex; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
             unsafe_allow_html=True,
         )
