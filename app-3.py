@@ -1,5 +1,3 @@
-
-
 import streamlit as st
 import openai
 
@@ -13,13 +11,6 @@ if "messages" not in st.session_state:
     st.session_state["messages"] = [
         {"role": "system", "content": ""}
         ]
-
-
-
-
-
-
-
 
 
 
@@ -102,42 +93,21 @@ if user_input:
 
 
 
-# 動画のURL
-video_url = "https://user-images.githubusercontent.com/37874452/270180987-85b8c0b5-5ba2-4862-b5cb-2e746eb771ec.mp4"
-
-# HTMLとJavaScriptを使用して動画を自動再生・ループ再生
-video_html = f'''
-<video width="320" height="240" controls autoplay loop>
-    <source src="{video_url}" type="video/mp4">
-</video>
-'''
-
-# StreamlitにHTMLを埋め込む
-st.markdown(video_html, unsafe_allow_html=True)
-
-# ... 以降はそのまま
-
-
 
 
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
-    # メッセージ表示のコード
+    for message in reversed(messages):
+        if message["role"] == "user":
+            speaker_icon = "<img src='https://user-images.githubusercontent.com/37874452/268952776-da20fb44-4303-4ebf-9335-9829e31c4f8c.png' width='60' style='vertical-align: middle; float: right;'>"
+            message_align = "flex-end"
+            content_order = f"<span style='margin-left: 10px; text-align: right;'>{message['content']}</span>{speaker_icon}"
+        else:
+            speaker_icon = "<img src='https://user-images.githubusercontent.com/37874452/268968551-3cb21d72-8e58-4eb9-894c-697f4b8147a7.png' width='60' style='vertical-align: middle; float: left;'>"
+            message_align = "flex-start"
+            content_order = f"{speaker_icon}<span style='margin-left: 10px; text-align: left;'>{message['content']}</span>"
 
-    # ユーザーまたはチャットボットの最新のメッセージに基づいて画像を選択
-    last_message = messages[-1]['content'].lower()  # 最新のメッセージを取得
-    if "happy" in last_message:
-        current_image_url = happy_image_url
-    elif "sad" in last_message:
-        current_image_url = sad_image_url
-    else:
-        current_image_url = neutral_image_url
-
-    # 画像をダウンロード
-    response = requests.get(current_image_url)
-    image = Image.open(BytesIO(response.content))
-
-    # 画像を表示
-    st.image(image)
-
-    # ...（以降のメッセージ表示コード）
+        st.markdown(
+            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
+            unsafe_allow_html=True,
+        )
