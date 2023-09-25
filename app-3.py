@@ -119,6 +119,16 @@ if st.session_state["messages"]:
             unsafe_allow_html=True,
         )
 
+
+css_style = """
+<style>
+/* Your CSS here */
+</style>
+"""
+
+st.markdown(css_style, unsafe_allow_html=True)
+
+
 /* For User Message */
 .user-message::before {
   content: "";
