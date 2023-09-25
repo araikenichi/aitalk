@@ -50,7 +50,7 @@ user_input = st.text_input("message", key="user_input", on_change=communicate)
 
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
-    for message in reversed(messages):
+    for message in messages:
         if message["role"] == "user":
             message_align = "flex-end"
             content_style = "background-color: #08A221; color: black; padding: 10px; border-radius: 10px;"
