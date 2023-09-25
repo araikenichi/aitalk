@@ -106,15 +106,25 @@ if st.session_state["messages"]:
     messages = st.session_state["messages"]
     for message in reversed(messages):
         if message["role"] == "user":
-            message_align = "flex-end"
-            content_style = "background-color: #08A221; color: black; padding: 10px; border-radius: 10px;"
-            content_order = f"<span style='{content_style}'>{message['content']}</span>"
+            content_style = "background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px; position: relative;"
+            arrow_style = "position: absolute; width: 12px; height: 12px; background-color: #0DAB26; clip-path: polygon(0% 0%, 100% 0%, 0% 100%); right: -6px; bottom: 10px;"
+            align_style = "flex-end"
         else:
-            message_align = "flex-start"
-            content_style = "background-color: #797B79; color: white; padding: 10px; border-radius: 10px;"
-            content_order = f"<span style='{content_style}'>{message['content']}</span>"
+            content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;"
+            arrow_style = "position: absolute; width: 12px; height: 12px; background-color: #ACAFAC; clip-path: polygon(0% 0%, 100% 0%, 0% 100%); left: -6px; bottom: 10px;"
+            align_style = "flex-start"
+
+        content = message['content']
 
         st.markdown(
-            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
+            f"""
+            <div style='display: flex; justify-content: {align_style}; align-items: center;'>
+                <div style='{content_style}'>
+                    {content}
+                    <div style='{arrow_style}'></div>
+                </div>
+            </div>
+            """,
             unsafe_allow_html=True,
         )
+
