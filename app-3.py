@@ -51,6 +51,9 @@ st.markdown(
 )
 
 
+user_input = st.text_input("Message", key="user_input")
+if user_input:
+    communicate(user_input)
 
 
 
