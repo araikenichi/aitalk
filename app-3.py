@@ -48,9 +48,17 @@ st.markdown(
 
 user_input = st.text_input("message", key="user_input", on_change=communicate)
 
+# 既存のUI定義の前にこのコードを追加
+container = st.empty()
+
+# 既存のコード
+# ...
+
+# メッセージの表示部分を以下のように変更
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
-    for message in messages:
+    message_display = ""
+    for message in messages:  # ここでreversedを使わない
         if message["role"] == "user":
             message_align = "flex-end"
             content_style = "background-color: #08A221; color: black; padding: 10px; border-radius: 10px;"
@@ -58,7 +66,7 @@ if st.session_state["messages"]:
             message_align = "flex-start"
             content_style = "background-color: #797B79; color: white; padding: 10px; border-radius: 10px;"
         content_order = f"<span style='{content_style}'>{message['content']}</span>"
-        st.markdown(
-            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
-            unsafe_allow_html=True,
-        )
+        message_display += f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>"
+
+    container.markdown(message_display, unsafe_allow_html=True)
+
