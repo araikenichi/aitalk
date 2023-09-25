@@ -62,9 +62,9 @@ st.markdown(
 
 
 
-# st.session_stateを使いメッセージのやりとりを保存
-if "messages" not in st.session_state:
-    st.session_state["messages"] = []
+
+
+
 
 # ユーザー入力
 user_input = st.text_input("message", key="user_input", on_change=communicate)
