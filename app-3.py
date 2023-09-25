@@ -22,7 +22,7 @@ def communicate(new_input):
     bot_message = response['choices'][0]['message']['content']
     messages.append({"role": "assistant", "content": bot_message})
     st.session_state.messages = messages
-    st.session_state.user_input = ""
+    st.session_state["user_input"] = ""
 
 
 
