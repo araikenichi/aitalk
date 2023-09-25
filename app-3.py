@@ -45,19 +45,15 @@ from io import BytesIO
 import streamlit as st
 
 
-# 画像のURL
-image_url = "https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png"
+# 動画のURL
+video_url = "https://user-images.githubusercontent.com/37874452/270353369-38139a9d-2428-454e-956a-23d860d5a6fc.mp4"
 
-# 画像をダウンロード
-response = requests.get(image_url)
-image = Image.open(BytesIO(response.content))
-
-
-# 画像を中央に表示するためのCSSを適用
+# 動画を中央に表示、サイズは300pxに設定
 st.markdown(
-    f"<div style='text-align: center;'><img src='https://user-images.githubusercontent.com/37874452/268891476-c11a2c43-8409-4b14-b770-6e6ba7360ab2.png' width='300'></div>",
+    f"<div style='text-align: center;'><video width='300' controls><source src='{video_url}' type='video/mp4'></video></div>",
     unsafe_allow_html=True,
 )
+
 
 
 
