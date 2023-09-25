@@ -100,17 +100,16 @@ if st.session_state["messages"]:
     for message in reversed(messages):
         if message["role"] == "user":
             message_align = "flex-end"
-            content_style = "background-color: #0DAB26; color: white; padding: 10px; border-radius: 10px; position: relative;"
-            tail_style = "content: ''; position: absolute; right: 0; top: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-right: 10px solid #0DAB26;"
+            content_style = "background-color: #0DAB26; color: white; padding: 10px; border-radius: 10px;"
+            tail_svg = """<svg height='20' width='20' style='position: absolute; right: 0; bottom: 0;'><polygon points='0,0 0,20 20,0' style='fill:#0DAB26;'></polygon></svg>"""
         else:
             message_align = "flex-start"
-            content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px; position: relative;"
-            tail_style = "content: ''; position: absolute; left: 0; top: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid #ACAFAC;"
+            content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px;"
+            tail_svg = """<svg height='20' width='20' style='position: absolute; left: 0; bottom: 0;'><polygon points='0,0 20,0 0,20' style='fill:#ACAFAC;'></polygon></svg>"""
 
-        content_order = f"<span style='{content_style}'>{message['content']}<span style='{tail_style}'></span></span>"
+        content_order = f"<span style='position: relative; {content_style}'>{message['content']}{tail_svg}</span>"
 
         st.markdown(
             f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
             unsafe_allow_html=True,
         )
-
