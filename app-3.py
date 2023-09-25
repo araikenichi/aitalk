@@ -6,22 +6,7 @@ openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 
 
-# セッションの初期設定
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "system", "content": "こんにちは、何でお助けできますか？"}]
 
-# ...
-
-# UI設定
-st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
-
-user_input = st.text_input("message", key="user_input")
-
-if user_input and user_input.strip() != "":
-    communicate(user_input.strip())
-    st.session_state["user_input"] = ""
-
-# ...
 
 
 
