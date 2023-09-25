@@ -2,43 +2,6 @@ import streamlit as st
 import openai
 
 
-# CSSのスタイルを定義
-css_style = """
-<style>
- /* For User Message */
-.user-message::before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-right: 10px solid #0DAB26;  /* Green */
-  position: absolute;
-  left: -10px;
-  top: 10px;
-}
-
-/* For AI Bot Message */
-.bot-message::before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 10px solid  #ACAFAC;  /* Grey */
-  position: absolute;
-  right: -10px;
-  top: 10px;
-}
-
-</style>
-"""
-
-# CSSをStreamlitアプリに適用
-st.markdown(css_style, unsafe_allow_html=True)
-
-# 残りのStreamlitコード...
-
 
 # Streamlit Community Cloudの「Secrets」からOpenAI API keyを取得
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
@@ -146,12 +109,14 @@ if st.session_state["messages"]:
     for message in reversed(messages):
         if message["role"] == "user":
             message_align = "flex-end"
+            arrow_style = "border: 10px solid; border-color: transparent transparent transparent #08A221;"
             content_style = "background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px;"
-            content_order = f"<span style='{content_style}'>{message['content']}</span>"
+            content_order = f"<div style='{arrow_style}'></div><span style='{content_style}'>{message['content']}</span>"
         else:
             message_align = "flex-start"
-            content_style = "background-color: #797B79; color: white; padding: 10px; border-radius: 10px;"
-            content_order = f"<span style='{content_style}'>{message['content']}</span>"
+            arrow_style = "border: 10px solid; border-color: transparent #797B79 transparent transparent;"
+            content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px;"
+            content_order = f"<div style='{arrow_style}'></div><span style='{content_style}'>{message['content']}</span>"
 
         st.markdown(
             f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
