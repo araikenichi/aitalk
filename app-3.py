@@ -100,47 +100,14 @@ if st.session_state["messages"]:
     for message in reversed(messages):
         if message["role"] == "user":
             message_align = "flex-end"
-            content_style = "background-color: #0DAB26; color: white; padding: 10px; border-radius: 10px;"
-            tail_svg = """<svg height='20' width='50' style='position: absolute; right: 40; bottom: 0;'><polygon points='0,0 20, 20,0' style='fill:#0DAB26;'></polygon></svg>"""
+            content_style = "background-color: #0DAB26; color: black; padding: 10px; border-radius: 10px;"
+            content_order = f"<span style='{content_style}'>{message['content']}</span>"
         else:
             message_align = "flex-start"
             content_style = "background-color: #ACAFAC; color: white; padding: 10px; border-radius: 10px;"
-            tail_svg = """<svg height='70' width='40' style='position: absolute; left: 40; bottom: 0;'><polygon points='0,0 20,0 0,20' style='fill:#ACAFAC;'></polygon></svg>"""
+            content_order = f"<span style='{content_style}'>{message['content']}</span>"
 
-        content_order = f"<span style='position: relative; {content_style}'>{message['content']}{tail_svg}</span>"
-
-        st.markdown("""
-<style>
-    .chat-bubble {
-        position: relative;
-        background-color: #ACAFAC;  /* Gray background for assistant */
-        border-radius: 10px;
-        padding: 10px;
-        width: fit-content;
-        margin-bottom: 10px;
-    }
-    .chat-bubble-user {
-        background-color: #0DAB26;  /* Green background for user */
-        color: white;
-    }
-    .chat-bubble::before {
-        content: "";
-        position: absolute;
-        width: 0;
-        height: 0;
-        left: -10px;
-        bottom: 0;
-        border: 5px solid transparent;
-        border-right-color: #ACAFAC;  /* Gray background for assistant */
-    }
-    .chat-bubble-user::before {
-        left: auto;
-        right: -10px;
-        border-left-color: #0DAB26;  /* Green background for user */
-        border-right-color: transparent;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown('<div class="chat-bubble">你好，有什么可以帮助您的？</div>', unsafe_allow_html=True)
-st.markdown('<div class="chat-bubble chat-bubble-user">你好，我有个问题。</div>', unsafe_allow_html=True)
+        st.markdown(
+            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
+            unsafe_allow_html=True,
+        )
