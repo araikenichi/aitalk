@@ -26,11 +26,12 @@ if "messages" not in st.session_state:
 video_url = "https://user-images.githubusercontent.com/37874452/270353369-38139a9d-2428-454e-956a-23d860d5a6fc.mp4"
 
 
-# Video and spacer
 st.markdown(
-    "<div style='text-align: center;'><video width='300' autoplay loop muted playsinline></video></div>",
+    f"<div style='text-align: center;'><video width='300' autoplay loop muted playsinline><source src='{video_url}' type='video/mp4'></video></div>",
     unsafe_allow_html=True,
 )
+
+
 st.write("<br><br><br><br><br><br><br><br><br><br><br><br><br>", unsafe_allow_html=True)
 
 # Add box shadow to text input
