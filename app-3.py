@@ -34,7 +34,8 @@ def communicate():
     bot_content = response['choices'][0]['message']['content']
     
     # 人物設定に基づいたカスタムメッセージ
-    custom_content =  {bot_content}"
+    custom_content = f"{bot_content}"
+
     
     bot_message = {"role": "assistant", "content": custom_content}
     messages.append(bot_message)
