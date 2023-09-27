@@ -29,34 +29,14 @@ st.markdown(
 )
 
 
-st.write("<br><br><br><br><br><br><br><br><br><br><br><br><br>", unsafe_allow_html=True)
-
-# Add box shadow to text input
-st.markdown(
-    """
-    <style>
-    input[data-testid="stTextI0"] {
-        box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-user_input = st.text_input("message", key="user_input", on_change=communicate)
-
-# 既存のUI定義の前にこのコードを追加
-container = st.empty()
-
-# 既存のコード
-# ...
-
 # ユーザーインターフェイスの構築
-st.write()
 st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 
-user_input = st.text_input("message", key="user_input")
-if user_input:
+with st.form(key='message_form'):
+    user_input = st.text_input("message", key="user_input")
+    submit_button = st.form_submit_button(label='Send')
+
+if submit_button:
     communicate(user_input)
     st.text_input("message", value="", key="user_input")  # 入力フィールドをクリア
 
