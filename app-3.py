@@ -35,10 +35,11 @@ st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
 with st.form(key='message_form'):
     user_input = st.text_input("message", key="user_input")
     submit_button = st.form_submit_button(label='Send')
+    
+    if submit_button:
+        communicate(user_input)
+        st.text_input("message", value="", key="user_input")  # 入力フィールドをクリア
 
-if submit_button:
-    communicate(user_input)
-    st.text_input("message", value="", key="user_input")  # 入力フィールドをクリア
 
 
 
