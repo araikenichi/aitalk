@@ -1,25 +1,22 @@
 import streamlit as st
 import openai
 
-# API Key
+# Streamlit Community Cloudの「Secrets」からOpenAI API keyを取得
 openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
-def communicate():
-    messages = st.session_state["messages"]
-    user_message = {"role": "user", "content": st.session_state["user_input"]}
+def communicate(user_input):
+    messages = st.session_state.get("messages", [])
+    user_message = {"role": "user", "content": user_input}
     messages.append(user_message)
+    
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=messages
     )
-    bot_message = response["choices"][0]["message"]
-    messages.append(bot_message)
-    st.session_state["user_input"] = ""
+    bot_message = response['choices'][0]['message']['content']
+    messages.append({"role": "assistant", "content": bot_message})
+    st.session_state["messages"] = messages  # 更新されたメッセージを保存
 
-st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
-
-if "messages" not in st.session_state:
-    st.session_state["messages"] = []
 
 
 # 動画のURL
@@ -54,11 +51,20 @@ container = st.empty()
 # 既存のコード
 # ...
 
-# メッセージの表示部分を以下のように変更
-if st.session_state["messages"]:
+# ユーザーインターフェイスの構築
+st.write()
+st.markdown("<h1 style='text-align: center;'>LISA</h1>", unsafe_allow_html=True)
+
+user_input = st.text_input("message", key="user_input")
+if user_input:
+    communicate(user_input)
+    st.text_input("message", value="", key="user_input")  # 入力フィールドをクリア
+
+
+
+if "messages" in st.session_state:
     messages = st.session_state["messages"]
-    message_display = ""
-    for message in messages:  # ここでreversedを使わない
+    for message in reversed(messages):
         if message["role"] == "user":
             message_align = "flex-end"
             content_style = "background-color: #08A221; color: black; padding: 10px; border-radius: 10px;"
@@ -66,7 +72,7 @@ if st.session_state["messages"]:
             message_align = "flex-start"
             content_style = "background-color: #797B79; color: white; padding: 10px; border-radius: 10px;"
         content_order = f"<span style='{content_style}'>{message['content']}</span>"
-        message_display += f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>"
-
-    container.markdown(message_display, unsafe_allow_html=True)
-
+        st.markdown(
+            f"<div style='display: flex; margin-bottom: 20px; justify-content: {message_align}; align-items: center;'>{content_order}</div>",
+            unsafe_allow_html=True,
+        )
