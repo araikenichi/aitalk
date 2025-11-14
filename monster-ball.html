@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>Three.js 精灵球示例</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        background: radial-gradient(circle at top, #202540, #05060b 70%);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #scene-container {
+        width: min(90vw, 900px);
+        height: min(90vh, 600px);
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+      }
+
+      canvas {
+        display: block;
+      }
+
+      footer {
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        opacity: 0.75;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="scene-container"></div>
+    <footer>拖动旋转、滚轮缩放</footer>
+    <script type="module">
+      import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js";
+      import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.161/examples/jsm/controls/OrbitControls.js";
+
+      const container = document.getElementById("scene-container");
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.Fog(0x05060b, 12, 30);
+
+      const camera = new THREE.PerspectiveCamera(
+        45,
+        container.clientWidth / container.clientHeight,
+        0.1,
+        100
+      );
+      camera.position.set(2.5, 2.2, 4);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.shadowMap.enabled = true;
+      container.appendChild(renderer.domElement);
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+      controls.minDistance = 2.2;
+      controls.maxDistance = 8;
+      controls.maxPolarAngle = Math.PI * 0.6;
+
+      const hemiLight = new THREE.HemisphereLight(0xffffff, 0x202020, 0.7);
+      hemiLight.position.set(0, 1, 0);
+      scene.add(hemiLight);
+
+      const keyLight = new THREE.SpotLight(0xfff6d7, 1.3, 20, Math.PI / 6, 0.35, 1.2);
+      keyLight.position.set(6, 9, 5);
+      keyLight.castShadow = true;
+      keyLight.shadow.mapSize.set(1024, 1024);
+      scene.add(keyLight);
+
+      const rimLight = new THREE.DirectionalLight(0x84a6ff, 0.6);
+      rimLight.position.set(-6, 4, -4);
+      scene.add(rimLight);
+
+      const group = new THREE.Group();
+      scene.add(group);
+
+      const redMaterial = new THREE.MeshStandardMaterial({
+        color: 0xe53935,
+        metalness: 0.45,
+        roughness: 0.28,
+      });
+      const whiteMaterial = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        metalness: 0.15,
+        roughness: 0.52,
+      });
+      const blackMaterial = new THREE.MeshStandardMaterial({
+        color: 0x111111,
+        metalness: 0.55,
+        roughness: 0.22,
+      });
+
+      const topGeometry = new THREE.SphereGeometry(
+        1,
+        64,
+        64,
+        0,
+        Math.PI * 2,
+        0,
+        Math.PI / 2
+      );
+      const topHalf = new THREE.Mesh(topGeometry, redMaterial);
+      topHalf.castShadow = true;
+      topHalf.receiveShadow = true;
+      group.add(topHalf);
+
+      const bottomGeometry = new THREE.SphereGeometry(
+        1,
+        64,
+        64,
+        0,
+        Math.PI * 2,
+        Math.PI / 2,
+        Math.PI / 2
+      );
+      const bottomHalf = new THREE.Mesh(bottomGeometry, whiteMaterial);
+      bottomHalf.castShadow = true;
+      bottomHalf.receiveShadow = true;
+      group.add(bottomHalf);
+
+      const equator = new THREE.Mesh(
+        new THREE.TorusGeometry(1.01, 0.085, 32, 128),
+        blackMaterial
+      );
+      equator.rotation.x = Math.PI / 2;
+      equator.castShadow = true;
+      equator.receiveShadow = true;
+      group.add(equator);
+
+      const buttonBase = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.32, 0.34, 0.1, 48),
+        blackMaterial
+      );
+      buttonBase.position.set(0, 0, 1.01);
+      buttonBase.rotation.x = Math.PI / 2;
+      buttonBase.castShadow = true;
+      buttonBase.receiveShadow = true;
+      group.add(buttonBase);
+
+      const buttonOuter = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.28, 0.28, 0.06, 48),
+        new THREE.MeshStandardMaterial({
+          color: 0xf5f7fa,
+          emissive: 0x112233,
+          metalness: 0.35,
+          roughness: 0.25,
+        })
+      );
+      buttonOuter.position.set(0, 0, 1.08);
+      buttonOuter.rotation.x = Math.PI / 2;
+      buttonOuter.castShadow = true;
+      buttonOuter.receiveShadow = true;
+      group.add(buttonOuter);
+
+      const buttonInner = new THREE.Mesh(
+        new THREE.SphereGeometry(0.16, 32, 32),
+        new THREE.MeshStandardMaterial({
+          color: 0x8ac9ff,
+          emissive: 0x295bff,
+          emissiveIntensity: 0.6,
+          metalness: 0.2,
+          roughness: 0.3,
+        })
+      );
+      buttonInner.position.set(0, 0, 1.17);
+      buttonInner.castShadow = true;
+      buttonInner.receiveShadow = true;
+      group.add(buttonInner);
+
+      const floorGeometry = new THREE.CircleGeometry(4.5, 64);
+      const floorMaterial = new THREE.MeshStandardMaterial({
+        color: 0x0c0d15,
+        metalness: 0.1,
+        roughness: 0.85,
+      });
+      const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+      floor.rotation.x = -Math.PI / 2;
+      floor.position.y = -1.01;
+      floor.receiveShadow = true;
+      scene.add(floor);
+
+      const glowGeometry = new THREE.RingGeometry(1.2, 1.8, 48);
+      const glowMaterial = new THREE.MeshBasicMaterial({
+        color: 0x2b92ff,
+        transparent: true,
+        opacity: 0.2,
+        side: THREE.DoubleSide,
+      });
+      const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+      glow.rotation.x = -Math.PI / 2;
+      glow.position.y = -0.99;
+      scene.add(glow);
+
+      group.rotation.x = Math.PI / 16;
+      group.rotation.y = -Math.PI / 6;
+
+      const clock = new THREE.Clock();
+
+      function animate() {
+        requestAnimationFrame(animate);
+        const elapsed = clock.getElapsedTime();
+        group.rotation.y = elapsed * 0.3 - Math.PI / 6;
+        buttonInner.material.emissiveIntensity = 0.5 + Math.sin(elapsed * 2.5) * 0.25;
+        controls.update();
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      window.addEventListener("resize", () => {
+        const { clientWidth, clientHeight } = container;
+        camera.aspect = clientWidth / clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(clientWidth, clientHeight);
+      });
+    </script>
+  </body>
+</html>
